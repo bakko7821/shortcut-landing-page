@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortcut</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="custom-cursor">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+            <circle class="cursor-circle" cx="12" cy="12" r="6" />
+            <polygon class="cursor-triangle" points="6,4 20,12 6,20" />
+        </svg>
+    </div>
+    <header>
+        <a href="#hero">
+            <img src="images/logo.svg" alt="" class="logoImage">
+        </a>
+        <nav>
+            <a href="#about" class="navLink">О нас</a>
+            <a href="#projects" class="navLink">Проекты</a>
+            <a href="#contacts" class="navLink">Контакты</a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="leftLines">
+                <div class="line-wrapper tl">
+                    <svg width="720" height="120" viewBox="0 0 720 120">
+                        <path d="M0 20 H560 L650 120" stroke="#ECECEC" stroke-width="1" fill="none" stroke-linejoin="round"/>
+                        <path class="progress-line" d="M0 20 H560 L650 120" stroke="#000" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+                        <circle class="marker" cx="12" cy="20" r="4.5" fill="#ECECEC"/>
+                        <circle class="marker" cx="276" cy="20" r="8.5" r="5" fill="#ECECEC" />
+                    </svg>
+
+                    <span class="label">Стратегии контента</span>
+                    <span class="label">Обучение видеосъемке</span>
+                </div>
+
+                <div class="line-wrapper bl">
+                    <svg width="720" height="120" viewBox="0 0 720 120">
+                        <path d="M0 100 H560 L650 -20" stroke="#ECECEC" stroke-width="1" fill="none" stroke-linejoin="round"/>
+                        <path class="progress-line" d="M0 100 H560 L650 -20" stroke="#000" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+                        <circle class="marker" cx="82" cy="100" r="4.5" fill="#ECECEC"/>
+                        <circle class="marker" cx="370" cy="100" r="8.5" r="5" fill="#ECECEC" />
+                    </svg>
+
+                    <span class="label">Развитие личного бренда</span>
+                    <span class="label">Консалтинг</span>
+                </div>
+            </div>
+            <div class="rightLines">
+                <div class="line-wrapper tr">
+                    <svg width="720" height="120" viewBox="0 0 720 120">
+                        <path d="M720 20 H160 L70 120" stroke="#ECECEC" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path class="progress-line" d="M720 20 H160 L70 120" stroke="#000" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+                        <circle class="marker" cx="700" cy="20" r="4.5" fill="#ECECEC"/>
+                        <circle class="marker" cx="466" cy="20" r="8.5" r="5" fill="#ECECEC" />
+                    </svg>
+
+                    <span class="label">Съемка и видеомонтаж</span>
+                    <span class="label">Разработка уникального дизайна</span>
+                </div>
+                <img src="images/camera.svg" alt="" class="cameraImage">
+                <div class="flash-overlay"></div>
+                <div class="line-wrapper br">
+                    <svg width="720" height="120" viewBox="0 0 720 120">
+                        <path d="M720 100 H160 L70 -20" stroke="#ECECEC" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path class="progress-line" d="M720 100 H160 L70 -20" stroke="#000" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+                        <circle class="marker" cx="690" cy="100" r="4.5" fill="#ECECEC"/>
+                        <circle class="marker" cx="500" cy="100" r="8.5" r="5" fill="#ECECEC" />
+                    </svg>
+
+                    <span class="label">Интеграция ИИ</span>
+                    <span class="label">Создание автономных систем маркетинга</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
