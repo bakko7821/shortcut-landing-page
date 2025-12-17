@@ -30,6 +30,24 @@
     font-weight: 700;
 }
 
+/* KEYFRAMES */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flash {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
 :root {
     --background-color: #F8F8F8;
     --text-color: #000000;
@@ -121,6 +139,12 @@ header {
     mix-blend-mode: difference;
 }
 
+header .logoImage {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
 header nav {
     display: flex;
     align-items: center;
@@ -129,6 +153,9 @@ header nav {
 }
 
 header nav a.navLink {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.3s;
     font-family: "PT Mono", monospace;
     font-size: var(--fs20);
     color: #ffffff;
@@ -143,6 +170,7 @@ main {
 
 section.hero {
     display: flex;
+    justify-content: space-between;
     margin-top: 155px;
     width: 100%;
     position: relative;
@@ -183,16 +211,12 @@ section.hero .cameraImage.flash {
   animation: flash 0.4s ease;
 }
 
-@keyframes flash {
-  0% { opacity: 0; }
-  30% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-
 .line-wrapper {
     position: relative;
-    width: 720px;
+}
+
+.line-wrapper svg {
+    overflow: visible;
 }
 
 .line-wrapper svg circle {
@@ -215,28 +239,28 @@ section.hero .cameraImage.flash {
 }
 
 .line-wrapper.tl .label{
-    top: 8px;
+    top: -10px;
     left: 72px;
 }
 
 .line-wrapper.tl .label:nth-of-type(2) { left: 365px; }
 
 .line-wrapper.bl .label {
-    bottom: 10px;
+    bottom: -10px;
     left: 150px;
 }
 
 .line-wrapper.bl .label:nth-of-type(2) { left: 438px; }
 
 .line-wrapper.tr .label {
-    top: 10px;
+    top: -10px;
     right: 31px;
 }
 
 .line-wrapper.tr .label:nth-of-type(2) { right: 309px; }
 
 .line-wrapper.br .label {
-    bottom: 10px;
+    bottom: -10px;
     right: 58px;
 }
 
@@ -244,3 +268,14 @@ section.hero .cameraImage.flash {
 
 .label.active { transform: scale(1.2); }
 .marker.active { fill: #000; }
+
+.base-path {
+  stroke-width: 1;
+}
+
+.progress-path {
+  stroke-width: 1;
+  stroke-dasharray: 0;
+  stroke-dashoffset: 0;
+  transition: none;
+}

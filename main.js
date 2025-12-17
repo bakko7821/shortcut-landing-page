@@ -1,30 +1,3 @@
-function getMarkerLengthOnPath(path, marker) {
-  const markerPoint = {
-    x: parseFloat(marker.getAttribute('cx')),
-    y: parseFloat(marker.getAttribute('cy'))
-  };
-
-  const pathLength = path.getTotalLength();
-  let closestLength = 0;
-  let minDistance = Infinity;
-
-  for (let l = 0; l <= pathLength; l += 2) {
-    const p = path.getPointAtLength(l);
-    const dx = p.x - markerPoint.x;
-    const dy = p.y - markerPoint.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-
-    if (dist < minDistance) {
-      minDistance = dist;
-      closestLength = l;
-    }
-  }
-
-  return closestLength / pathLength;
-}
-
-/* ================= CURSOR ================= */
-
 const cursor = document.querySelector('.custom-cursor');
 
 window.addEventListener('mousemove', e => {
@@ -42,14 +15,59 @@ document.querySelectorAll('a, button, .is-clickable').forEach(el => {
   });
 });
 
-/* ================= LINES ================= */
+const wait = ms => new Promise(r => setTimeout(r, ms));
 
-// 🔥 NEW: счётчик завершённых линий
-let finishedLines = 0;
-const totalLines = document.querySelectorAll('.line-wrapper').length;
+const LINE_DURATION = 500;
+const CHECKPOINT_PAUSE = 700;
 
-// 🔥 NEW: финальная анимация камеры
-function triggerCameraAnimation() {
+async function animateLine(wrapper) {
+  const progressPath = wrapper.querySelector('.progress-path');
+  const markers = wrapper.querySelectorAll('.marker');
+  const labels = wrapper.querySelectorAll('.label');
+
+  if (!progressPath) return;
+
+  const length = progressPath.getTotalLength();
+
+  progressPath.style.strokeDasharray = length;
+  progressPath.style.strokeDashoffset = 0;
+
+  const checkpoints = [0.3, 0.6, 1];
+  let currentOffset = 0;
+
+  for (let i = 0; i < checkpoints.length; i++) {
+    const p = checkpoints[i];
+    const targetOffset = length * p;
+
+    progressPath.animate(
+      [
+        { strokeDashoffset: currentOffset },
+        { strokeDashoffset: targetOffset }
+      ],
+      {
+        duration: LINE_DURATION,
+        easing: 'ease-out',
+        fill: 'forwards'
+      }
+    );
+
+    await wait(LINE_DURATION);
+    currentOffset = targetOffset;
+
+    if (markers[i]) {
+      markers[i].classList.add('active');
+      labels[i].classList.add('active');
+
+      await wait(CHECKPOINT_PAUSE);
+
+      labels[i].classList.remove('active');
+    }
+  }
+
+  triggerFlash()
+}
+
+function triggerFlash() {
   const camera = document.querySelector('.cameraImage');
   const flash = document.querySelector('.flash-overlay');
 
@@ -60,68 +78,13 @@ function triggerCameraAnimation() {
 
   setTimeout(() => {
     camera.classList.remove('flash');
+    flash.classList.remove('active');
   }, 600);
 }
 
-// 🔥 NEW: вызывается, когда линия закончилась
-function onLineFinished() {
-  finishedLines++;
 
-  if (finishedLines === totalLines) {
-    triggerCameraAnimation();
-  }
-}
-
-document.querySelectorAll('.line-wrapper').forEach(wrapper => {
-  const path = wrapper.querySelector('.progress-line');
-  const markers = wrapper.querySelectorAll('.marker');
-  const labels = wrapper.querySelectorAll('.label');
-
-  const pathLength = path.getTotalLength();
-  path.style.strokeDasharray = pathLength;
-  path.style.strokeDashoffset = pathLength;
-
-  const markerPercent = Array.from(markers).map(marker =>
-    getMarkerLengthOnPath(path, marker)
-  );
-
-  let progress = 0;
-  let currentMarker = 0;
-  let paused = false;
-
-  function animate() {
-    if (paused) return;
-
-    progress += 2;
-    path.style.strokeDashoffset = pathLength - progress;
-
-    if (
-      currentMarker < markers.length &&
-      progress / pathLength >= markerPercent[currentMarker]
-    ) {
-      paused = true;
-
-      markers[currentMarker].classList.add('active');
-      labels[currentMarker].classList.add('active');
-
-      setTimeout(() => {
-        labels[currentMarker].classList.remove('active');
-        paused = false;
-        currentMarker++;
-        requestAnimationFrame(animate);
-      }, 1500);
-
-      return;
-    }
-
-    // 🔥 NEW: линия дошла до конца
-    if (progress >= pathLength) {
-      onLineFinished();
-      return;
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
+window.addEventListener('load', () => {
+  document
+    .querySelectorAll('.line-wrapper')
+    .forEach(w => animateLine(w));
 });
