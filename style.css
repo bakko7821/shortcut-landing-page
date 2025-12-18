@@ -86,10 +86,13 @@
     }
 }
 
+/* MEDIA */
+
 
 :root {
     --background-color: #F8F8F8;
-    --text-color: #000000;
+    --text-color: #120303;
+    --black: #000000;
     --white: #ffffff;
     --fs48: clamp(2.5rem, 2vh, 3rem);
     --fs20: clamp(1rem, 2vh, 1.25rem);
@@ -108,10 +111,12 @@
 
 html, body {
     display: flex;
-    align-items: start;
-    justify-content: center;
-    width: 100vw;
+    align-items: center;
+    flex-direction: column;
+    justify-content: start;
+    width: 100%;
     min-height: 100vh;
+    margin: 0 auto;
     height: auto;
     overflow-x: hidden;
     background-color: var(--background-color);
@@ -202,15 +207,37 @@ header nav {
 }
 
 header nav a.navLink {
+    position: relative;
     opacity: 0;
     animation: fadeIn 1s ease forwards;
     animation-delay: 0.3s;
+
     font-family: "PT Mono", monospace;
     font-size: var(--fs20);
     color: var(--white);
     mix-blend-mode: difference;
-    line-height: 1;
-    letter-spacing: -0,6px;
+
+    text-decoration: none;
+}
+
+header nav a.navLink::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+/* hover */
+header nav a.navLink:hover::after {
+    transform: scaleX(1);
 }
 
 main {
@@ -369,7 +396,7 @@ section.applyNow p {
 }
 
 .applyNowButton {
-    background-color: var(--text-color);
+    background-color: var(--black);
     color: var(--background-color);
     padding: 12px 24px;
     border-radius: 12px;
@@ -380,6 +407,12 @@ section.applyNow p {
     position: relative;
     animation: upAndOpacity 1.2s forwards;
     z-index: 10;
+    transition: all 0.5s;
+}
+
+.applyNowButton:hover {
+    background-color: #C2C2C2;
+    color: var(--text-color);
 }
 
 section.advantages {
@@ -467,7 +500,8 @@ section.aboutUs .textbox {
     gap: 40px;
 }
 
-section.aboutUs .textbox .titleText {
+h2.titleText,
+section.configurator h2.titleText span {
     font-family: "PT Mono", monospace;
     font-weight: 400;
     white-space: nowrap;
@@ -484,5 +518,250 @@ section.aboutUs .textbox .descriptionText {
 }
 
 section.portfolio {
+    padding: 0px 40px;
+    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
     margin-top: 360px;
+}
+
+section.portfolio .sliderBox {
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
+}
+
+section.portfolio .sliderBox .video-preview {
+    width: 900px;
+    height: 506px;
+    position: relative;
+}
+
+section.portfolio .sliderBox .rightBox .video-slider {
+    position: relative;
+    width: 440px;
+    height: 245px;
+    opacity: 0.5;
+}
+
+section.portfolio .sliderBox .video-preview iframe,
+section.portfolio .sliderBox .rightBox .video-slider iframe {
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+section.portfolio .sliderBox .rightBox {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+}
+
+section.portfolio .sliderBox .rightBox .slider-navigate {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+}
+
+section.portfolio .sliderBox .rightBox .slider-navigate button {
+    border-radius: 100%;
+    background-color: #ECECEC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: background-color 0.5s;
+}
+
+section.portfolio .sliderBox .rightBox .slider-navigate button img {
+    transition: filter 0.5s;
+}
+
+section.portfolio .sliderBox .rightBox .slider-navigate button:hover {
+    background-color: var(--text-color);
+}
+
+section.portfolio .sliderBox .rightBox .slider-navigate button:hover img {
+    filter: invert(1) brightness(2);
+}
+
+section.portfolio .sliderBox .rightBox .slider-navigate button.right {
+    transform: scaleX(-1);
+}
+
+section.configurator {
+    margin-top: 136px;
+    padding: 16px 40px;
+    background-color: var(--white);
+}
+
+section.configurator h2.titleText span {
+    opacity: 0.5;
+}
+
+section.configurator .leftBox {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+section.configurator .leftBox img {
+    width: 688px;
+    opacity: 0.5;
+}
+
+section.configurator .leftBox .descriptionText {
+    font-family: "PT Mono", monospace;
+    font-size: var(--fs14);
+    color: var(--text-color);
+    opacity: 0.2;
+    line-height: 1.1;
+    letter-spacing: -0.28px;
+}
+
+footer {
+    display: flex;
+    overflow: hidden;
+    justify-content: space-between;
+    padding: 64px 40px;
+    position: relative;
+    margin-top: 112px;
+    width: 100%;
+    height: 577px;
+    background-color: #1A1A1A;
+}
+
+footer .bg-image {
+    z-index: 1;
+    position: absolute;
+    width: 1669px;
+    opacity: 0.2;
+    top: -400px;
+    left: -100px;
+}
+
+footer .leftBox,
+footer .rightBox  {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 10;
+    width: 100%;
+}
+
+footer .rightBox {
+    align-items: end;
+}
+
+footer .leftBox .links,
+footer .rightBox .links {
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+footer .rightBox .links {
+    align-items: end;
+}
+
+footer .rightBox .creatorsLinks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+footer .links a,
+footer .rightBox .creatorsLinks a {
+    color: var(--white);
+    font-size: var(--fs16);
+    line-height: 20px;
+    letter-spacing: -0.32px;
+    position: relative;
+}
+
+footer .links a::after,
+footer .rightBox .creatorsLinks a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+
+    width: 100%;
+    height: 1px;
+    background-color: var(--white);
+
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+footer .links a:hover::after,
+footer .rightBox .creatorsLinks a:hover::after {
+    transform: scaleX(1);
+}
+
+footer .leftBox .yearText,
+footer .rightBox .creatorsLinks,
+footer .centerBox .allRightText {
+    color: var(--white);
+    font-size: var(--fs16);
+    line-height: 20px;
+    letter-spacing: -0.32px;
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+footer .centerBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+footer .centerBox .topBox {
+    gap: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer .centerBox .allRightText {
+    margin-top: 112px;
+}
+
+footer .centerBox .topBox .applyNowButton {
+    background-color: #434343;
+    color: var(--white);
+}
+
+footer .centerBox .topBox .applyNowButton:hover {
+    background-color: var(--white);
+    color: var(--text-color);
+}
+
+@media (max-width: 1024px) {
+    body {
+        max-width: 1024px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        max-width: 768px;
+    }
 }
