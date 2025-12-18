@@ -79,34 +79,59 @@ function triggerFlash() {
   setTimeout(() => {
     camera.classList.remove('flash');
     flash.classList.remove('active');
-  }, 600);
+  }, 300);
 }
 
 const svgContainers = document.querySelectorAll('.svg-container');
 
 svgContainers.forEach(container => {
-    const paths = container.querySelectorAll('path');  // пути только для этого SVG
-    const svgCursor = container.querySelector('.svgCursor'); // курсор для этого SVG
-    let current = 0;
+    const paths = Array.from(container.querySelectorAll('path'));
+    const svgCursor = container.querySelector('.svgCursor');
+    let current;
 
-    function showNext() {
-        if(current < paths.length){
-            const path = paths[current];
-            path.style.opacity = 1;
+    // Определяем направление
+    const isLeft = container.classList.contains('left');
 
-            // Перемещаем курсор к правому краю текущей буквы
-            const bbox = path.getBBox();
-            svgCursor.style.left = bbox.x + bbox.width + 'px';
+    if (isLeft) {
+        current = 0;
 
-            current++;
-            setTimeout(showNext, 200); // скорость печати
-        } else {
-            // Скрываем курсор, когда все пути показаны
-            svgCursor.style.display = 'none';
+        function showNextLeft() {
+            if(current < paths.length){
+                const path = paths[current];
+                path.style.opacity = 1;
+
+                const bbox = path.getBBox();
+                svgCursor.style.left = bbox.x + bbox.width + 'px';
+
+                current++;
+                setTimeout(showNextLeft, 200);
+            } else {
+                svgCursor.style.display = 'none';
+            }
         }
-    }
 
-    showNext();
+        showNextLeft();
+
+    } else { // right
+        current = paths.length - 1;
+
+        function showNextRight() {
+            if(current >= 0){
+                const path = paths[current];
+                path.style.opacity = 1;
+
+                const bbox = path.getBBox();
+                svgCursor.style.left = bbox.x + 'px'; // курсор слева от буквы
+
+                current--;
+                setTimeout(showNextRight, 200);
+            } else {
+                svgCursor.style.display = 'none';
+            }
+        }
+
+        showNextRight();
+    }
 });
 
 window.addEventListener('load', () => {

@@ -57,10 +57,41 @@
   100% { opacity: 0; }
 }
 
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
+
+@keyframes dropAndOpacity {
+    0% {
+        opacity: 0;
+        top: -60px;
+    }
+
+    100% {
+        opacity: 1;
+        top: 0px;
+    }
+}
+
+@keyframes upAndOpacity {
+    0% {
+        opacity: 0;
+        top: 60px;
+    }
+
+    100% {
+        opacity: 1;
+        top: 0px;
+    }
+}
+
 
 :root {
     --background-color: #F8F8F8;
     --text-color: #000000;
+    --white: #ffffff;
+    --fs48: clamp(2.5rem, 2vh, 3rem);
     --fs20: clamp(1rem, 2vh, 1.25rem);
     --fs16: clamp(0.875rem, 2vh, 1rem);
     --fs14: clamp(0.625rem, 2vh, 0.875rem);
@@ -144,6 +175,7 @@ body {
 }
 
 header {
+    z-index: 999;
     position: fixed;
     top: 24px;
     padding: 0px 40px;
@@ -159,6 +191,7 @@ header .logoImage {
     opacity: 0;
     animation: fadeIn 1s ease forwards;
     animation-delay: 0.3s;
+    mix-blend-mode: difference;
 }
 
 header nav {
@@ -174,7 +207,7 @@ header nav a.navLink {
     animation-delay: 0.3s;
     font-family: "PT Mono", monospace;
     font-size: var(--fs20);
-    color: #ffffff;
+    color: var(--white);
     mix-blend-mode: difference;
     line-height: 1;
     letter-spacing: -0,6px;
@@ -231,11 +264,6 @@ section.hero .cameraImage.flash {
     animation: blink 0.7s step-start infinite;
     top: 0;
     left: 0;
-}
-
-@keyframes blink {
-    0%, 50%, 100% { opacity: 1; }
-    25%, 75% { opacity: 0; }
 }
 
 .flash-overlay {
@@ -307,7 +335,7 @@ section.hero .cameraImage.flash {
 .line-wrapper.br .label:nth-of-type(2) { right: 245px; }
 
 .label.active { transform: scale(1.2); }
-.marker.active { fill: #000; }
+.marker.active { fill: var(--text-color); }
 
 .base-path {
   stroke-width: 1;
@@ -336,9 +364,11 @@ section.applyNow p {
     font-size: var(--fs16);
     width: 308px;
     display: inline-block;
+    position: relative;
+    animation: dropAndOpacity 1.2s forwards;
 }
 
-section.applyNow .applyNowButton {
+.applyNowButton {
     background-color: var(--text-color);
     color: var(--background-color);
     padding: 12px 24px;
@@ -347,4 +377,112 @@ section.applyNow .applyNowButton {
     font-size: var(--fs14);
     line-height: 1;
     letter-spacing: -0.42px;
+    position: relative;
+    animation: upAndOpacity 1.2s forwards;
+    z-index: 10;
+}
+
+section.advantages {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 292px;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 80px;
+    padding: 20px 40px;
+    background-color: var(--white);    
+}
+
+section.advantages .plug {
+    background-color: #F3F3F3;
+    width: 2px;
+    height: 100%;
+    border-radius: 990px;
+}
+
+section.advantages img.line {
+    opacity: 0.11;
+    position: absolute;
+    width: 546px;
+    height: 682px;
+}
+
+section.advantages img.line.left {
+    left: -100px;
+    bottom: -150px;
+    transform: rotate(120deg);
+}
+
+section.advantages img.line.right {
+    bottom: -150px;
+    right: -150px;
+    transform: rotate(40deg);
+}
+
+section.advantages article .textbox{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 24px;
+    width: 100%;
+}
+
+section.advantages article .textbox .titleText {
+    font-weight: 400;
+    white-space: nowrap;
+    font-size: var(--fs48);
+    letter-spacing: -0.96px;
+    line-height: 1.1;
+}
+
+section.advantages article .textbox p.titleText,
+section.advantages article .textbox p.descriptionText {
+    white-space: wrap;
+    font-size: var(--fs16);
+    line-height: 1.2;
+    letter-spacing: -0.32px;
+}
+
+section.aboutUs {
+    padding: 0 40px;
+    margin-top: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 300px;
+}
+
+section.aboutUs img.aboutImage {
+    width: 484px;
+    height: 398px;
+}
+
+section.aboutUs .textbox {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+section.aboutUs .textbox .titleText {
+    font-family: "PT Mono", monospace;
+    font-weight: 400;
+    white-space: nowrap;
+    font-size: var(--fs48);
+    letter-spacing: -0.96px;
+    line-height: 1.1;
+}
+
+section.aboutUs .textbox .descriptionText {
+    width: 574px;
+    font-size: var(--fs16);
+    line-height: 1.2;
+    letter-spacing: -0.32px;
+}
+
+section.portfolio {
+    margin-top: 360px;
 }
