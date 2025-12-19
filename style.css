@@ -88,13 +88,13 @@
 
 /* MEDIA */
 
-
 :root {
     --background-color: #F8F8F8;
     --text-color: #120303;
     --black: #000000;
     --white: #ffffff;
     --fs48: clamp(2.5rem, 2vh, 3rem);
+    --fs32: clamp(1.8rem, 2vh, 2rem);
     --fs20: clamp(1rem, 2vh, 1.25rem);
     --fs16: clamp(0.875rem, 2vh, 1rem);
     --fs14: clamp(0.625rem, 2vh, 0.875rem);
@@ -248,12 +248,14 @@ section.hero {
     display: flex;
     justify-content: space-between;
     margin-top: 155px;
+    gap: 145px;
     width: 100%;
     position: relative;
 }
 
 section.hero .leftLines,
 section.hero .rightLines {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -261,7 +263,19 @@ section.hero .rightLines {
     gap: 110px;
 }
 
+section.hero .leftLines .line-wrapper,
+section.hero .rightLines .line-wrapper {
+    width: 100%;
+}
+
+section.hero .leftLines svg,
+section.hero .rightLines svg {
+    width: 100%;
+}
+
 section.hero .cameraImage {
+    min-width: 188px;
+    width: 23%;
     z-index: 999;
     position: absolute;
     top: 50%;
@@ -387,9 +401,10 @@ section.applyNow {
 section.applyNow p {
     text-align: center;
     color: var(--text-color);
+    line-height: 1.1;
     font-weight: 400;
     font-size: var(--fs16);
-    width: 308px;
+    width: 22%;
     display: inline-block;
     position: relative;
     animation: dropAndOpacity 1.2s forwards;
@@ -483,21 +498,23 @@ section.advantages article .textbox p.descriptionText {
 section.aboutUs {
     padding: 0 40px;
     margin-top: 120px;
+    gap: 44px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 300px;
 }
 
 section.aboutUs img.aboutImage {
-    width: 484px;
-    height: 398px;
+    width: 36%;
+    min-width: 448px;
 }
 
 section.aboutUs .textbox {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    width: 42%;
+    min-width: 410px;
 }
 
 h2.titleText,
@@ -511,7 +528,6 @@ section.configurator h2.titleText span {
 }
 
 section.aboutUs .textbox .descriptionText {
-    width: 574px;
     font-size: var(--fs16);
     line-height: 1.2;
     letter-spacing: -0.32px;
@@ -587,7 +603,7 @@ section.portfolio .sliderBox .rightBox .slider-navigate button img {
 }
 
 section.portfolio .sliderBox .rightBox .slider-navigate button:hover {
-    background-color: var(--text-color);
+    background-color: var(--black);
 }
 
 section.portfolio .sliderBox .rightBox .slider-navigate button:hover img {
@@ -757,6 +773,59 @@ footer .centerBox .topBox .applyNowButton:hover {
 @media (max-width: 1024px) {
     body {
         max-width: 1024px;
+    }
+
+    .line-wrapper.tl .label{
+        top: -10px;
+        left: 72px;
+    }
+
+    .line-wrapper.tl .label:nth-of-type(2) { left: 345px; }
+
+    .line-wrapper.bl .label {
+        bottom: -8px;
+        left: 140px;
+    }
+
+    .line-wrapper.bl .label:nth-of-type(2) { left: 428px; }
+
+    .line-wrapper.tr .label {
+        top: -10px;
+        right: 31px;
+    }
+
+    .line-wrapper.tr .label:nth-of-type(2) { right: 280px; }
+
+    .line-wrapper.br .label {
+        bottom: -8px;
+        right: 58px;
+    }
+
+    .line-wrapper.br .label:nth-of-type(2) { right: 245px; }
+
+
+    section {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+    
+    section.applyNow p {
+        width: 35%;
+        line-height: 16px;
+        font-size: var(--fs14);
+    }
+
+    section.advantages article:nth-of-type(3) .textbox {
+        gap: 40px;
+    }
+
+    section.advantages article .textbox .titleText {
+        font-size: var(--fs32);
+    }
+
+    section.advantages article .textbox p.titleText, 
+    section.advantages article .textbox p.descriptionText {
+        font-size: var(--fs14);
     }
 }
 
