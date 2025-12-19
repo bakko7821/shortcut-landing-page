@@ -260,7 +260,7 @@ section.hero .rightLines {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 110px;
+    gap: clamp(83.5px, 7.6vw, 110px);
 }
 
 section.hero .leftLines .line-wrapper,
@@ -270,7 +270,8 @@ section.hero .rightLines .line-wrapper {
 
 section.hero .leftLines svg,
 section.hero .rightLines svg {
-    width: 100%;
+    width: 100% !important;
+    height: 90% !important;
 }
 
 section.hero .cameraImage {
@@ -290,6 +291,8 @@ section.hero .cameraImage.flash {
 }
 
 .svg-container {
+    min-width: 235px;
+    width: 30%;
     position: relative;
 }
 
@@ -332,8 +335,14 @@ section.hero .cameraImage.flash {
     transition: all 0.5s;
 }
 
+.labelBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
 .label {
-  position: absolute;
   white-space: nowrap;
   transform-origin: center;
   transition: transform 0.5s;
@@ -347,33 +356,47 @@ section.hero .cameraImage.flash {
   padding: 4px 8px;
 }
 
-.line-wrapper.tl .label{
-    top: -10px;
-    left: 72px;
+.line-wrapper.tl .labelBox {
+    top: -13px;
+    right: 100px;
+    gap: clamp(
+        20px,
+        calc(20px + (160 - 20) * ((100vw - 1024px) / 416)),
+        160px
+    );
 }
 
-.line-wrapper.tl .label:nth-of-type(2) { left: 345px; }
-
-.line-wrapper.bl .label {
-    bottom: -8px;
-    left: 140px;
+.line-wrapper.bl .labelBox {
+    bottom: 0;
+    right: 100px;
+    gap: clamp(
+        20px,
+        calc(20px + (110 - 20) * ((100vw - 1024px) / 416)),
+        110px
+    );
 }
 
-.line-wrapper.bl .label:nth-of-type(2) { left: 428px; }
-
-.line-wrapper.tr .label {
-    top: -10px;
-    right: 31px;
+.line-wrapper.tr .labelBox {
+    flex-direction: row-reverse;
+    top: -13px;
+    left: 100px;
+    gap: clamp(
+        20px,
+        calc(20px + (110 - 20) * ((100vw - 1024px) / 416)),
+        110px
+    );
 }
 
-.line-wrapper.tr .label:nth-of-type(2) { right: 280px; }
-
-.line-wrapper.br .label {
-    bottom: -8px;
-    right: 58px;
+.line-wrapper.br .labelBox {
+    flex-direction: row-reverse;
+    left: 100px;
+    bottom: 0;
+    gap: clamp(
+        20px,
+        calc(20px + (78 - 20) * ((100vw - 1024px) / 416)),
+        78px
+    );
 }
-
-.line-wrapper.br .label:nth-of-type(2) { right: 245px; }
 
 .label.active { transform: scale(1.2); }
 .marker.active { fill: var(--text-color); }
@@ -544,21 +567,31 @@ section.portfolio {
 }
 
 section.portfolio .sliderBox {
+    width: 100%;
+    height: clamp(
+        403px,
+        calc(403px + (536 - 403) * ((100vw - 1024px) / (1440 - 1024))),
+        536px
+    );
     display: flex;
     align-items: stretch;
+    justify-content: center;
     gap: 20px;
 }
 
 section.portfolio .sliderBox .video-preview {
-    width: 900px;
-    height: 506px;
+    width: 74%;
+    max-width: 900px;
+    min-width: 649px;
+    height: 100%;
+    flex: 3;
     position: relative;
 }
 
 section.portfolio .sliderBox .rightBox .video-slider {
     position: relative;
-    width: 440px;
-    height: 245px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
     opacity: 0.5;
 }
 
@@ -575,10 +608,18 @@ section.portfolio .sliderBox .rightBox .video-slider iframe {
 }
 
 section.portfolio .sliderBox .rightBox {
+    flex: 1;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: end;
     justify-content: space-between;
+}
+
+section.portfolio .sliderBox .rightBox .slider {
+    width: 100%;
+    height: auto;
 }
 
 section.portfolio .sliderBox .rightBox .slider-navigate {
@@ -775,34 +816,35 @@ footer .centerBox .topBox .applyNowButton:hover {
         max-width: 1024px;
     }
 
-    .line-wrapper.tl .label{
-        top: -10px;
-        left: 72px;
+    circle {
+        display: none;
     }
 
-    .line-wrapper.tl .label:nth-of-type(2) { left: 345px; }
-
-    .line-wrapper.bl .label {
-        bottom: -8px;
-        left: 140px;
+    .line-wrapper.tl .labelBox {
+        top: -13px;
+        left: 10px;
+        gap: 20px;
     }
 
-    .line-wrapper.bl .label:nth-of-type(2) { left: 428px; }
-
-    .line-wrapper.tr .label {
-        top: -10px;
-        right: 31px;
+    .line-wrapper.bl .labelBox {
+        gap: 20px;
+        bottom: 0;
+        left: 54px;
     }
 
-    .line-wrapper.tr .label:nth-of-type(2) { right: 280px; }
-
-    .line-wrapper.br .label {
-        bottom: -8px;
-        right: 58px;
+    .line-wrapper.tr .labelBox {
+        flex-direction: row-reverse;
+        top: -13px;
+        right: -80px;
+        gap: 20px;
     }
 
-    .line-wrapper.br .label:nth-of-type(2) { right: 245px; }
-
+    .line-wrapper.br .labelBox {
+        flex-direction: row-reverse;
+        gap: 20px;
+        bottom: 0;
+        right: -90px;
+    }
 
     section {
         padding-left: 20px !important;
