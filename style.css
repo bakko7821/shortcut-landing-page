@@ -260,7 +260,7 @@ section.hero .rightLines {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: clamp(83.5px, 7.6vw, 110px);
+    gap: clamp(0px, 7.6vw, 110px);
 }
 
 section.hero .leftLines .line-wrapper,
@@ -453,6 +453,10 @@ section.applyNow p {
     color: var(--text-color);
 }
 
+section.advantages.tablet {
+    display: none;
+}
+
 section.advantages {
     overflow: hidden;
     position: relative;
@@ -523,21 +527,27 @@ section.aboutUs {
     margin-top: 120px;
     gap: 44px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
-section.aboutUs img.aboutImage {
-    width: 36%;
-    min-width: 448px;
+section.aboutUs .imageBox {
+    display: flex;
+}
+
+section.aboutUs .imageBox img.aboutImage {
+    max-height: 368px;
+    height: 100%;
+    width: auto;
+    object-fit: contain;
 }
 
 section.aboutUs .textbox {
     display: flex;
     flex-direction: column;
     gap: 40px;
-    width: 42%;
     min-width: 410px;
+    max-width: 574px;
 }
 
 h2.titleText,
@@ -563,7 +573,11 @@ section.portfolio {
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    margin-top: 360px;
+    margin-top: clamp(
+        110px,
+        calc(110px + (360 - 110) * ((100vw - 1024px) / (1440 - 1024))),
+        360px
+    );
 }
 
 section.portfolio .sliderBox {
@@ -821,34 +835,32 @@ footer .centerBox .topBox .applyNowButton:hover {
     }
 
     .line-wrapper.tl .labelBox {
-        top: -13px;
-        left: 10px;
-        gap: 20px;
+        right: 70px;
     }
 
     .line-wrapper.bl .labelBox {
-        gap: 20px;
-        bottom: 0;
-        left: 54px;
+        right: 70px;
     }
 
     .line-wrapper.tr .labelBox {
-        flex-direction: row-reverse;
-        top: -13px;
-        right: -80px;
-        gap: 20px;
+        left: 70px;
     }
 
     .line-wrapper.br .labelBox {
-        flex-direction: row-reverse;
-        gap: 20px;
-        bottom: 0;
-        right: -90px;
+        left: 70px;
     }
 
-    section {
+    section, header, footer {
         padding-left: 20px !important;
         padding-right: 20px !important;
+    }
+
+    section.aboutUs img.aboutImage {
+        height: 100%;
+    }
+    
+    section.aboutUs .textbox .descriptionText {
+        font-size: var(--fs14);
     }
     
     section.applyNow p {
@@ -869,10 +881,77 @@ footer .centerBox .topBox .applyNowButton:hover {
     section.advantages article .textbox p.descriptionText {
         font-size: var(--fs14);
     }
+
 }
 
 @media (max-width: 768px) {
     body {
         max-width: 768px;
+    }
+
+    .line-wrapper.tl .labelBox {
+        right: 50px;
+    }
+
+    .line-wrapper.bl .labelBox {
+        right: 50px;
+    }
+
+    .line-wrapper.tr .labelBox {
+        left: 50px;
+    }
+
+    .line-wrapper.br .labelBox {
+        left: 50px;
+    }
+
+    section.advantages {
+        display: none;
+    }
+
+    section.advantages.tablet {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    section.advantages.tablet .topBox,
+    section.advantages.tablet .bottomBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+    }
+
+    section.advantages.tablet article {
+        width: 100%;
+    }
+
+    section.advantages.tablet .plug.big {
+        height: 1px;
+        width: 100%;
+    }
+
+    section.portfolio .sliderBox {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    section.portfolio .sliderBox .video-preview {
+        width: 100%;
+    }
+
+    section.portfolio .sliderBox .rightBox .video-slider {
+        display: none;
+    }
+
+    section.portfolio .sliderBox .rightBox {
+        flex: 0;
+        justify-content: center;
+        align-items: center;
     }
 }
