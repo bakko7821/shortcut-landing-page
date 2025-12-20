@@ -245,6 +245,9 @@ header nav a.navLink:hover::after {
 main {
     overflow: hidden;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 104px;
 }
 
 section.hero {
@@ -418,7 +421,6 @@ section.hero .cameraImage.flash {
 
 section.applyNow {
     gap: 40px;
-    margin-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -470,7 +472,6 @@ section.advantages {
     align-items: end;
     justify-content: space-between;
     gap: 20px;
-    margin-top: 80px;
     padding: 20px 40px;
     background-color: var(--white);    
 }
@@ -528,7 +529,6 @@ section.advantages article .textbox p.descriptionText {
 
 section.aboutUs {
     padding: 0 40px;
-    margin-top: 120px;
     gap: 44px;
     display: flex;
     justify-content: space-between;
@@ -575,11 +575,6 @@ section.portfolio {
     display: flex;
     flex-direction: column;
     gap: 40px;
-    margin-top: clamp(
-        110px,
-        calc(110px + (360 - 110) * ((100vw - 1024px) / (1440 - 1024))),
-        360px
-    );
 }
 
 section.portfolio .sliderBox {
@@ -699,9 +694,7 @@ section.portfolio .sliderBox {
     transform: scaleX(-1);
 }
 
-
 section.configurator {
-    margin-top: 136px;
     padding: 16px 40px;
     background-color: var(--white);
 }
