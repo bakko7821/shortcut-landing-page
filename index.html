@@ -24,7 +24,7 @@
         </nav>
     </header>
     <main>
-        <section class="hero">
+        <section class="hero" id="hero">
             <div class="leftLines">
                 <div class="line-wrapper tl">
                     <svg width="603" height="116" viewBox="0 0 603 116" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -182,8 +182,8 @@
             <p>Экосистема, которая превращает видеоконтент в управляемую маркетинговую систему.</p>
             <button class="applyNowButton">Обратиться сейчас</button>
         </section>
-        <section class="advantages">
-            <img src="images/lines.png" alt="" class="line left">
+        <section class="advantages reveal">
+            <img src="images/lines.png" alt="" class="line left ">
             <article>
                 <div class="textbox">
                     <h3 class="titleText">1.5 раза</h3>
@@ -211,10 +211,10 @@
                     <button class="applyNowButton">Обратиться сейчас</button>
                 </div>
             </article>
-            <img src="images/lines.png" alt="" class="line right">
+            <img src="images/lines.png" alt="" class="line right ">
         </section>
-        <section class="advantages tablet">
-            <img src="images/lines.png" alt="" class="line left">
+        <section class="advantages tablet reveal">
+            <img src="images/lines.png" alt="" class="line left ">
             <div class="topBox">
                 <article>
                     <div class="textbox">
@@ -247,7 +247,7 @@
                 </article>
             </div>
         </section>
-        <section class="aboutUs" id="aboutUs">
+        <section class="aboutUs reveal" id="aboutUs">
             <div class="textbox">
                 <h2 class="titleText">О нас</h2>
                 <p class="descriptionText">Привет, это Shortcut. Мы появились в 2024 году как манифест искренности в мире инфоцыганства. Раньше мы работали как обычное агентство по монтажу видео: создавали ролики, правили контент и наблюдали, как многие продают пустые обещания и курсы, а реальные результаты для бизнеса остаются на втором плане.<br/><br/>
@@ -255,14 +255,15 @@
                 Мы объединили лучшие таланты страны: наш опыт в киноиндустрии, дизайнеров, видеооператоров и маркетологов. Каждый здесь работает на результат, а не на эффектный фасад. Shortcut стал системой, где скорость, качество и эффективность контента превращаются в инструмент для реального бизнеса.</p>
             </div>
             <div class="imageBox">
-                <img src="images/aboutImage.png" alt="" class="aboutImage">
+                <img src="images/aboutImage.png" alt="" class="aboutImage ">
             </div>
         </section>
-        <section class="portfolio" id="projects">
+        <section class="portfolio reveal" id="projects">
             <h2 class="titleText">Портфолио</h2>
             <div class="sliderBox">
                 <div class="video-preview">
                     <iframe
+                        loading="lazy"
                         src="https://www.youtube.com/embed/Y2VfshsfKes?si=_2qQEXU49-z7jnte"
                         title="YouTube video player"
                         allowfullscreen>
@@ -270,13 +271,7 @@
                 </div>
                 <div class="rightBox">
                     <div class="slider">
-                        <div class="video-slider">
-                            <iframe
-                                src="https://www.youtube.com/embed/8uh125-cA_U"
-                                title="YouTube video player"
-                                allowfullscreen>
-                            </iframe>
-                        </div>
+                        <div class="video-slider"></div>
                     </div>
                     <div class="slider-navigate">
                         <button class="left"><img src="images/ion_arrow-down-outline.svg" alt=""></button>
@@ -286,16 +281,16 @@
                 </div>
             </div>
         </section>
-        <section class="configurator" id="#configurator">
+        <section class="configurator reveal" id="#configurator">
             <div class="leftBox">
                 <h2 class="titleText">Конфигуратор услуг<span>/монтаж</span></h2>
-                <img src="images/d8bffea26b9d2727110833bb706c64a26d138351.png" alt="">
+                <img src="images/d8bffea26b9d2727110833bb706c64a26d138351.png" alt="" class="">
                 <span class="descriptionText">*Здесь вы можете выбрать список услуг</span>
             </div>
         </section>
     </main>
-    <footer>
-        <img src="images/789543d6ae973fe2a99313b7085257c13e6a101c.png" alt="" class="bg-image">
+    <footer class="reveal">
+        <img src="images/789543d6ae973fe2a99313b7085257c13e6a101c.png" alt="" class="bg-image ">
         <div class="leftBox">
             <div class="links">
                 <a target="_blank" href="">Политика конфиденциальности</a>
@@ -308,7 +303,7 @@
         </div>
         <div class="centerBox">
             <div class="topBox">
-                <img src="images/logo.png" alt="" class="logoFooter">
+                <img src="images/logo.png" alt="" class="logoFooter ">
                 <button class="applyNowButton">Обратиться сейчас</button>
             </div>
             <span class="allRightText">all rights reserved</span>
