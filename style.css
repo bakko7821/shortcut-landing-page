@@ -180,10 +180,11 @@ body {
 }
 
 header {
+    backdrop-filter: blur(2px);
     z-index: 999;
     position: fixed;
-    top: 24px;
-    padding: 0px 40px;
+    top: 0px;
+    padding: 24px 40px;
     width: 100%;
     max-width: 1440px;
     display: flex;
@@ -407,9 +408,10 @@ section.hero .cameraImage.flash {
 
 .progress-path {
   stroke-width: 1;
-  stroke-dasharray: 0;
-  stroke-dashoffset: 0;
+  stroke-dasharray: none;
   transition: none;
+  stroke-linecap: round;
+  will-change: stroke-dashoffset;
 }
 
 section.applyNow {

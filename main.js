@@ -30,14 +30,14 @@ async function animateLine(wrapper) {
   const length = progressPath.getTotalLength();
 
   progressPath.style.strokeDasharray = length;
-  progressPath.style.strokeDashoffset = 0;
+  progressPath.style.strokeDashoffset = length;
 
   const checkpoints = [0.3, 0.6, 1];
-  let currentOffset = 0;
+  let currentOffset = length;
 
   for (let i = 0; i < checkpoints.length; i++) {
     const p = checkpoints[i];
-    const targetOffset = length * p;
+    const targetOffset = length * (1 - p);
 
     progressPath.animate(
       [
