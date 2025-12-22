@@ -294,7 +294,7 @@ section.hero .rightLines svg {
 section.hero .cameraImage {
     min-width: 188px;
     width: 23%;
-    z-index: 999;
+    z-index: 998;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -308,7 +308,7 @@ section.hero .cameraImage.flash {
 }
 
 .svg-container {
-    min-width: 235px;
+    min-width: 110px;
     width: 60%;
     position: relative;
 }
@@ -752,6 +752,10 @@ footer {
     background-color: #1A1A1A;
 }
 
+footer.mobile {
+    display: none;
+}
+
 footer .bg-image {
     z-index: 1;
     position: absolute;
@@ -826,7 +830,8 @@ footer .rightBox .creatorsLinks a:hover::after {
 
 footer .leftBox .yearText,
 footer .rightBox .creatorsLinks,
-footer .centerBox .allRightText {
+footer .allRightText, 
+footer .madeBy {
     color: var(--white);
     font-size: var(--fs16);
     line-height: 20px;
@@ -854,12 +859,12 @@ footer .centerBox .allRightText {
     margin-top: 112px;
 }
 
-footer .centerBox .topBox .applyNowButton {
+footer .centerBox .applyNowButton {
     background-color: #434343;
     color: var(--white);
 }
 
-footer .centerBox .topBox .applyNowButton:hover {
+footer .centerBox .applyNowButton:hover {
     background-color: var(--white);
     color: var(--text-color);
 }
@@ -876,6 +881,10 @@ footer .centerBox .topBox .applyNowButton:hover {
 }
 
 @media (max-width: 1024px) {
+    section.advantages img.line.right {
+        display: none;
+    }
+
     body {
         max-width: 1024px;
     }
@@ -935,6 +944,10 @@ footer .centerBox .topBox .applyNowButton:hover {
 }
 
 @media (max-width: 768px) {
+    section.advantages img.line.right {
+        display: none;
+    }
+
     body {
         max-width: 768px;
     }
@@ -1012,5 +1025,254 @@ footer .centerBox .topBox .applyNowButton:hover {
         flex: 0;
         justify-content: center;
         align-items: center;
+    }
+}
+
+
+@media (max-width: 390px) {
+    section {
+        padding: 16px !important;
+    }
+    
+    main {
+        gap: 80px;
+    }
+
+    header .logoImage {
+        height: 16px;
+    }
+
+    header nav {
+        gap: 20px;
+    }
+
+    header nav a.navLink {
+        font-size: var(--fs14);
+        line-height: 1;
+    }
+
+    section.hero {
+        margin-top: 110px;
+    }
+
+    section.hero .cameraImage {
+        min-width: 120px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .label {
+        font-size: clamp(0.5rem, 2vh, 0.625rem);
+    }
+
+    .svgCursor {
+        height: 18px;
+    }
+
+    .line-wrapper.tl .labelBox {
+        flex-direction: row-reverse;
+        top: -8px;
+        right: 20px;
+    }
+
+    .line-wrapper.tr .labelBox {
+        flex-direction: row-reverse;
+        top: -8px;
+        left: 20px;
+    }
+
+    .line-wrapper.bl .labelBox {
+        flex-direction: row-reverse;
+        bottom: -8px;
+        right: 20px;
+    }
+
+    .line-wrapper.br .labelBox {
+        flex-direction: row-reverse;
+        bottom: -8px;
+        left: 20px;
+    }
+
+    section.hero .leftLines {
+        position: relative;
+        left: 30px;
+    }
+
+    section.hero .leftLines .svg-container {
+        left: -30px;
+    }
+
+    section.hero .rightLines .svg-container {
+        left: 30px;
+    }
+
+    section.hero .rightLines {
+        position: relative;
+        left: -30px;
+    }
+
+    section.applyNow {
+        width: 100%;
+        gap: 24px;
+    }
+
+    section.applyNow p {
+        width: 95%;
+    }
+
+    section.advantages .plug {
+        width: 100%;
+        height: 2px;
+    }
+
+    section.advantages {
+        gap: 16px;
+        height: auto;
+    }
+
+    section.advantages img.line {
+        width: 200px;
+        height: 248px;
+    }
+
+    section.advantages img.line.left {
+        bottom: -70px;
+        left: -80px;
+    }
+
+    section.advantages img.line.right {
+        display: flex;
+        top: -70px;
+        right: -80px;
+        transform: rotate(280deg);
+    }
+
+    section.advantages.tablet .topBox, section.advantages.tablet .bottomBox {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    section.advantages article .textbox {
+        gap: 12px;
+    }
+
+    section.aboutUs {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    section.aboutUs .textbox {
+        width: 100%;
+        gap: 24px;
+        min-width: 20vw;
+    }
+
+    section.aboutUs .imageBox {
+        width: 100%;
+        min-width: 20vw;
+    }
+
+    section.aboutUs .imageBox img.aboutImage {
+        width: 100%;
+    }
+
+    section.portfolio {
+        gap: 32px;
+    }
+
+    h2.titleText, section.configurator h2.titleText span {
+        font-size: var(--fs32);
+        line-height: 40px;
+        letter-spacing: -0.64px;
+    }
+
+    section.portfolio .sliderBox {
+        height: auto;
+        gap: 32px;
+    }
+
+    section.portfolio .sliderBox .video-preview {
+        flex: auto;
+        max-width: none;
+        min-width: 100%;
+        height: 201px;
+    }
+
+    .video-preview iframe {
+        height: 201px;
+    }
+
+    footer {
+        padding: 16px;
+        display: none;
+    }
+
+    footer.mobile {
+        height: 577px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    footer.mobile .bg-image {
+        width: 1165px;
+        height: 1165px;
+        top: -100px;
+        left: -400px;
+    }
+
+    footer.mobile .topBox {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 126px;
+    }
+
+    footer.mobile .topBox .links {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 8px;
+    }
+
+    footer.mobile .topBox .links.right {
+        align-items: end;
+    }
+
+    footer.mobile .topBox .links.left a:nth-of-type(1) {
+        width: 160px;
+    }
+
+    footer.mobile .centerBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        margin-bottom: 93px;
+    }
+
+    footer.mobile .centerBox .logoFooter {
+        width: 100%;
+    }
+
+    footer.mobile .bottomBox {
+        width: 100%;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+    }
+
+    footer.mobile .bottomBox .yearText {
+        white-space: nowrap;
+    }
+
+    footer.mobile .bottomBox .leftBox, 
+    footer.mobile .bottomBox .rightBox {
+        display: flex;
+        flex-direction: column;
+        gap: 29px;
     }
 }
