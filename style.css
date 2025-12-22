@@ -730,6 +730,7 @@ section.configurator .leftBox {
     align-items: start;
     justify-content: space-between;
     gap: 40px;
+    height: 100%;
 }
 
 section.configurator .leftBox .imageBox {
@@ -743,6 +744,11 @@ section.configurator .leftBox .imageBox {
 section.configurator .leftBox img {
     width: 345px;
     opacity: 0.5;
+}
+
+#cameraImage {
+  transition: opacity 0.5s ease-in-out;  /* Плавный переход */
+  opacity: 0.5;
 }
 
 section.configurator .leftBox .descriptionText {
@@ -825,10 +831,11 @@ section.configurator form article input[type="checkbox"]:focus-visible + .custom
 }
 
 /* ✅ disabled */
-section.configurator form article input[type="checkbox"]:disabled + .custom-checkbox{
+section.configurator form article input[type="checkbox"].blocked + .custom-checkbox {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 
 section.configurator form article.card {
     width: 100%;
@@ -898,6 +905,12 @@ section.configurator form .submitFormButton {
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.48px;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+section.configurator form .submitFormButton:hover {
+    background-color: #C2C2C2;
+    color: var(--black);
 }
 
 label.counter {

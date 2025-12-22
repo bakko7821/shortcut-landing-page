@@ -42,6 +42,7 @@ const CONFIG = [
     title: "Подготовка",
     type: "sectionCheckbox",          // секция с главным чекбоксом
     defaultChecked: false,
+    count: 60000,
     items: [
       { type: "text", label: "Диагностика текущего контента и точек роста" },
       { type: "text", label: "Анализ ниши и конкурентов" },
@@ -69,14 +70,14 @@ const CONFIG = [
         step: 1,
         defaultValue: 1,
       },
-      { type: "checkbox", id: "clientShooting", label: "Съемка силами клиента", defaultChecked: false },
-      { type: "checkbox", id: "locations", label: "Подбор локаций для съемок", defaultChecked: false },
-      { type: "checkbox", id: "editing", label: "Монтаж и подготовка к публикации", defaultChecked: false },
-      { type: "checkbox", id: "preview", label: "Превью", defaultChecked: false },
-      { type: "checkbox", id: "horizontal", label: "Монтаж горизонтальных роликов", defaultChecked: false },
-      { type: "checkbox", id: "verticalCuts", label: "Нарезка вертикальных роликов для соцсетей", defaultChecked: false },
-      { type: "checkbox", id: "seo", label: "Оптимизация роликов (заголовок, описание, теги)", defaultChecked: false },
-      { type: "checkbox", id: "publish", label: "Публикация на платформах YouTube, Telegram, ВКонтакте, Rutube", defaultChecked: false },
+      { type: "checkbox", id: "clientShooting", label: "Съемка силами клиента", defaultChecked: false, count: 0 },
+      { type: "checkbox", id: "locations", label: "Подбор локаций для съемок", defaultChecked: false, count: 0 },
+      { type: "checkbox", id: "editing", label: "Монтаж и подготовка к публикации", defaultChecked: false, count: 0 },
+      { type: "checkbox", id: "preview", label: "Превью", defaultChecked: false, count: 0 },
+      { type: "checkbox", id: "horizontal", label: "Монтаж горизонтальных роликов", defaultChecked: false, count: 0 },
+      { type: "checkbox", id: "verticalCuts", label: "Нарезка вертикальных роликов для соцсетей", defaultChecked: false, count: 0 },
+      { type: "checkbox", id: "seo", label: "Оптимизация роликов (заголовок, описание, теги)", defaultChecked: false, count: 0 },
+      { type: "checkbox", id: "publish", label: "Публикация на платформах YouTube, Telegram, ВКонтакте, Rutube", defaultChecked: false, count: 0},
     ],
   },
   {
@@ -84,16 +85,17 @@ const CONFIG = [
     title: "Поддержка",
     type: "sectionCheckbox",          // секция с главным чекбоксом
     defaultChecked: false,
+    count: 25000,
     items: [
-      { type: "checkbox", label: "Аналитика и разбор результатов" },
-      { type: "checkbox", label: "Корректировка форматов и подачи" },
-      { type: "checkbox", label: "Обновление контент-плана для YouTube" },
-      { type: "checkbox", label: "Продюсерское сопровождение" },
-      { type: "checkbox", label: "Созвон" },
-      { type: "checkbox", label: "Разбор" },
-      { type: "checkbox", label: "Контроль задач и сроков" },
-      { type: "checkbox", label: "Актуализация контента" },
-      { type: "checkbox", label: "Ответы на комментарии роликов" },
+      { type: "checkbox", label: "Аналитика и разбор результатов", defaultChecked: false  },
+      { type: "checkbox", label: "Корректировка форматов и подачи", defaultChecked: false  },
+      { type: "checkbox", label: "Обновление контент-плана для YouTube", defaultChecked: false  },
+      { type: "checkbox", label: "Продюсерское сопровождение", defaultChecked: false  },
+      { type: "checkbox", label: "Созвон", defaultChecked: false  },
+      { type: "checkbox", label: "Разбор", defaultChecked: false  },
+      { type: "checkbox", label: "Контроль задач и сроков", defaultChecked: false  },
+      { type: "checkbox", label: "Актуализация контента", defaultChecked: false  },
+      { type: "checkbox", label: "Ответы на комментарии роликов", defaultChecked: false  },
     ],
   },
   {
@@ -101,13 +103,14 @@ const CONFIG = [
     title: "Ведение социальных сетей",
     type: "sectionCheckbox",          // секция с главным чекбоксом
     defaultChecked: false,
+    count: 100000,
     items: [
-      { type: "checkbox", label: "Актуализация контент-плана" },
-      { type: "checkbox", label: "Создание и оформление постов" },
-      { type: "checkbox", label: "Сторис и короткие форматы" },
-      { type: "checkbox", label: "Взаимодействие с аудиторией" },
-      { type: "checkbox", label: "Аналитика и отчётность" },
-      { type: "checkbox", label: "Поиск рекламодателей и партнёров" },
+      { type: "checkbox", label: "Актуализация контент-плана", defaultChecked: false  },
+      { type: "checkbox", label: "Создание и оформление постов", defaultChecked: false  },
+      { type: "checkbox", label: "Сторис и короткие форматы", defaultChecked: false  },
+      { type: "checkbox", label: "Взаимодействие с аудиторией", defaultChecked: false  },
+      { type: "checkbox", label: "Аналитика и отчётность", defaultChecked: false  },
+      { type: "checkbox", label: "Поиск рекламодателей и партнёров", defaultChecked: false  },
     ],
   },
   {
@@ -115,11 +118,12 @@ const CONFIG = [
     title: "Обучение",
     type: "sectionCheckbox",          // секция с главным чекбоксом
     defaultChecked: false,
+    count: 19000,
     items: [
-      { type: "checkbox", label: "Основы композиции" },
-      { type: "checkbox", label: "Настройки съемочного оборудования или телефона" },
-      { type: "checkbox", label: "Техники съемки для качественного контента" },
-      { type: "checkbox", label: "Практические рекомендации для самостоятельного производства роликов" },
+      { type: "checkbox", label: "Основы композиции", defaultChecked: false  },
+      { type: "checkbox", label: "Настройки съемочного оборудования или телефона", defaultChecked: false  },
+      { type: "checkbox", label: "Техники съемки для качественного контента", defaultChecked: false  },
+      { type: "checkbox", label: "Практические рекомендации для самостоятельного производства роликов", defaultChecked: false  },
     ],
   },
 ];
@@ -373,6 +377,35 @@ function escapeHtml(s) {
 function renderConfigurator() {
   root.innerHTML = CONFIG.map(renderCard).join("");
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+  const cameraImage = document.querySelector("#cameraImage"); // Ссылка на изображение камеры
+  let cameraState = 1; // Начальное состояние камеры (camera1.png)
+
+  // Функция для отслеживания изменений чекбоксов
+  const checkboxes = document.querySelectorAll(".section-toggle");  // Все чекбоксы
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", (e) => {
+      // Проверяем, сколько чекбоксов выбрано
+      const selectedCheckboxes = document.querySelectorAll(".section-toggle:checked").length;
+
+      // Обновляем состояние камеры в зависимости от выбранных чекбоксов
+      cameraState = Math.min(selectedCheckboxes + 1, 6); // Максимум camera6.png
+
+      // Плавно меняем изображение с эффектом фейда
+      cameraImage.style.opacity = 0; // Сначала скрываем изображение
+
+      // После того как изображение исчезло, меняем его источник
+      setTimeout(() => {
+        cameraImage.src = `images/cameraState/camera${cameraState}.png`;
+
+        // После того как источник изменился, показываем изображение снова с фейдом
+        cameraImage.style.opacity = 1; // Возвращаем изображение с плавным фейдом
+      }, 300); // Это время должно совпадать с временем анимации в CSS (0.5s)
+    });
+  });
+});
+
 
 function renderCard(card) {
   const sectionInputId = `section-${card.id}`;
