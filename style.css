@@ -95,6 +95,7 @@
     --white: #ffffff;
     --fs48: clamp(2.5rem, 2vh, 3rem);
     --fs32: clamp(1.8rem, 2vh, 2rem);
+    --fs24: clamp(1.25rem, 2vh, 1.5rem);
     --fs20: clamp(1rem, 2vh, 1.25rem);
     --fs16: clamp(0.875rem, 2vh, 1rem);
     --fs14: clamp(0.625rem, 2vh, 0.875rem);
@@ -710,7 +711,12 @@ section.portfolio .sliderBox {
 }
 
 section.configurator {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 287px;
     padding: 16px 40px;
+    height: 600px;
     background-color: var(--white);
 }
 
@@ -726,8 +732,16 @@ section.configurator .leftBox {
     gap: 40px;
 }
 
+section.configurator .leftBox .imageBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
 section.configurator .leftBox img {
-    width: 688px;
+    width: 345px;
     opacity: 0.5;
 }
 
@@ -739,6 +753,199 @@ section.configurator .leftBox .descriptionText {
     line-height: 1.1;
     letter-spacing: -0.28px;
 }
+
+section.configurator form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+section.configurator form #configuratorRoot {
+    gap: 8px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+section.configurator form article input[type="checkbox"]{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.custom-checkbox{
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  border: 1px solid #E8E8E8;
+  background-color: #D8D8D8;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s;
+}
+
+.custom-checkbox::after{
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url(images/mdi_tick.svg) center / contain no-repeat;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+/* ✅ checked — применяем к input и красим соседний span */
+section.configurator form article input[type="checkbox"]:checked + .custom-checkbox{
+    border-radius: 2px;
+    background: #120303;
+    border-color: #120303;
+}
+
+section.configurator form article input[type="checkbox"]:checked + .custom-checkbox::after{
+  opacity: 1;
+}
+
+/* ✅ focus */
+section.configurator form article input[type="checkbox"]:focus-visible + .custom-checkbox{
+  outline: 3px solid rgba(18, 3, 3, 0.35);
+  outline-offset: 2px;
+}
+
+/* ✅ disabled */
+section.configurator form article input[type="checkbox"]:disabled + .custom-checkbox{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+section.configurator form article.card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 32px;
+    background-color: var(--background-color);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+section.configurator form article.card .preview {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section.configurator form article.card .preview .textBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+section.configurator form article.card .preview .textBox span {
+    font-size: var(--fs24);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.48px;
+}
+
+section.configurator form article.card .content {
+    width: 100%;
+}
+
+section.configurator form article.card .content ul {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+    list-style: none;
+}
+
+section.configurator form article.card .content ul li {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--fs16);
+    line-height: 1.2;
+    letter-spacing: -0.32px;
+    color: var(--text-color);
+}
+
+section.configurator form .submitFormButton {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 28px 24px;
+    gap: 10px;
+    border-radius: 12px;
+    width: 100%;
+    font-size: var(--fs16);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.48px;
+}
+
+label.counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Плавный поворот стрелки */
+.dropDownButton {
+  transition: transform 0.3s ease;
+}
+
+/* Контейнер для карточек */
+.card {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Скрываем все другие карточки */
+.card[hidden] {
+  display: none;
+}
+
+/* Плавное раскрытие/сжатие блока */
+.content {
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, display 0s ease 0.3s;
+}
+
+.content.open {
+  display: block;
+  max-height: 1000px; /* максимальная высота блока, чтобы дать анимацию */
+  transition: max-height 0.3s ease-in;
+}
+
+/* Поворот стрелки */
+.dropDownButton {
+  transform: rotate(0deg);
+}
+
+.content.open ~ .dropDownButton {
+  transform: rotate(180deg);
+}
+
+
 
 footer {
     display: flex;
