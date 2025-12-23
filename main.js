@@ -40,7 +40,7 @@ const CONFIG = [
   {
     id: "preparation",
     title: "Подготовка",
-    type: "sectionCheckbox",          // секция с главным чекбоксом
+    type: "sectionCheckbox",
     defaultChecked: false,
     count: 60000,
     items: [
@@ -73,7 +73,7 @@ const CONFIG = [
       { type: "checkbox", id: "clientShooting", label: "Съемка силами клиента", defaultChecked: false, count: 0 },
       { type: "checkbox", id: "locations", label: "Подбор локаций для съемок", defaultChecked: false, count: 0 },
       { type: "checkbox", id: "editing", label: "Монтаж и подготовка к публикации", defaultChecked: false, count: 0 },
-      { type: "checkbox", id: "preview", label: "Превью", defaultChecked: false, count: 0 },
+      { type: "checkbox", id: "preview", label: "Превью", defaultChecked: false, count: 1500 },
       { type: "checkbox", id: "horizontal", label: "Монтаж горизонтальных роликов", defaultChecked: false, count: 0 },
       { type: "checkbox", id: "verticalCuts", label: "Нарезка вертикальных роликов для соцсетей", defaultChecked: false, count: 0 },
       { type: "checkbox", id: "seo", label: "Оптимизация роликов (заголовок, описание, теги)", defaultChecked: false, count: 0 },
@@ -83,47 +83,47 @@ const CONFIG = [
   {
     id: "support",
     title: "Поддержка",
-    type: "sectionCheckbox",          // секция с главным чекбоксом
+    type: "sectionCheckbox",
     defaultChecked: false,
     count: 25000,
     items: [
-      { type: "checkbox", label: "Аналитика и разбор результатов", defaultChecked: false  },
-      { type: "checkbox", label: "Корректировка форматов и подачи", defaultChecked: false  },
-      { type: "checkbox", label: "Обновление контент-плана для YouTube", defaultChecked: false  },
-      { type: "checkbox", label: "Продюсерское сопровождение", defaultChecked: false  },
-      { type: "checkbox", label: "Созвон", defaultChecked: false  },
-      { type: "checkbox", label: "Разбор", defaultChecked: false  },
-      { type: "checkbox", label: "Контроль задач и сроков", defaultChecked: false  },
-      { type: "checkbox", label: "Актуализация контента", defaultChecked: false  },
-      { type: "checkbox", label: "Ответы на комментарии роликов", defaultChecked: false  },
+      { type: "checkbox", label: "Аналитика и разбор результатов", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Корректировка форматов и подачи", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Обновление контент-плана для YouTube", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Продюсерское сопровождение", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Созвон", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Разбор", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Контроль задач и сроков", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Актуализация контента", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Ответы на комментарии роликов", defaultChecked: false, count: 0  },
     ],
   },
   {
     id: "socialMedia",
     title: "Ведение социальных сетей",
-    type: "sectionCheckbox",          // секция с главным чекбоксом
+    type: "sectionCheckbox",
     defaultChecked: false,
     count: 100000,
     items: [
-      { type: "checkbox", label: "Актуализация контент-плана", defaultChecked: false  },
-      { type: "checkbox", label: "Создание и оформление постов", defaultChecked: false  },
-      { type: "checkbox", label: "Сторис и короткие форматы", defaultChecked: false  },
-      { type: "checkbox", label: "Взаимодействие с аудиторией", defaultChecked: false  },
-      { type: "checkbox", label: "Аналитика и отчётность", defaultChecked: false  },
-      { type: "checkbox", label: "Поиск рекламодателей и партнёров", defaultChecked: false  },
+      { type: "checkbox", label: "Актуализация контент-плана", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Создание и оформление постов", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Сторис и короткие форматы", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Взаимодействие с аудиторией", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Аналитика и отчётность", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Поиск рекламодателей и партнёров", defaultChecked: false, count: 0  },
     ],
   },
   {
     id: "learning",
     title: "Обучение",
-    type: "sectionCheckbox",          // секция с главным чекбоксом
+    type: "sectionCheckbox",
     defaultChecked: false,
     count: 19000,
     items: [
-      { type: "checkbox", label: "Основы композиции", defaultChecked: false  },
-      { type: "checkbox", label: "Настройки съемочного оборудования или телефона", defaultChecked: false  },
-      { type: "checkbox", label: "Техники съемки для качественного контента", defaultChecked: false  },
-      { type: "checkbox", label: "Практические рекомендации для самостоятельного производства роликов", defaultChecked: false  },
+      { type: "checkbox", label: "Основы композиции", defaultChecked: false, count: 0   },
+      { type: "checkbox", label: "Настройки съемочного оборудования или телефона", defaultChecked: false, count: 0   },
+      { type: "checkbox", label: "Техники съемки для качественного контента", defaultChecked: false, count: 0   },
+      { type: "checkbox", label: "Практические рекомендации для самостоятельного производства роликов", defaultChecked: false, count: 0   },
     ],
   },
 ];
@@ -138,7 +138,7 @@ const MONTAGE_CONFIG = [
     title: "Подкаст",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 60000,
+    count: 1200,
     items: []
   },
   {
@@ -146,7 +146,7 @@ const MONTAGE_CONFIG = [
     title: "Экспертное видео",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 60000,
+    count: 1200,
     items: []
   },
   {
@@ -154,7 +154,7 @@ const MONTAGE_CONFIG = [
     title: "Художественный",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 60000,
+    count: 1200,
     items: []
   },
   {
@@ -162,7 +162,7 @@ const MONTAGE_CONFIG = [
     title: "Реклама",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 60000,
+    count: 1200,
     items: []
   },
   {
@@ -170,7 +170,7 @@ const MONTAGE_CONFIG = [
     title: "Рилсы",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 60000,
+    count: 1000,
     items: []
   },
 ]
@@ -695,6 +695,8 @@ function setMode(mode) {
     montageDurationBox.style.display = 'flex';
     durationTitle.style.display = 'flex';
   }
+
+  updateTotalUI();
 }
 
 function getActiveRoot() {
@@ -781,6 +783,8 @@ function handleRootClick(root, e) {
       });
     }
     return;
+
+    updateTotalUI();
   }
 
   // counter +/- (unchanged)
@@ -830,16 +834,94 @@ function handleRootChange(root, e) {
     updateCamera();
     return;
   }
+
+  updateTotalUI();
 }
 
 const montageHidden = document.querySelector("#montageDurationHidden");
 
 montageRange.addEventListener("input", () => {
   montageHidden.value = montageRange.value;
+  updateMontageBubble();
+  updateTotalUI();
 });
 
 serviceRoot.addEventListener("change", (e) => handleRootChange(serviceRoot, e));
 montageRoot.addEventListener("change", (e) => handleRootChange(montageRoot, e));
+
+
+function calculateServiceTotal() {
+  let total = 0;
+
+  CONFIG.forEach(card => {
+    const sectionCheckbox = document.querySelector(
+      `input[name="${card.id}__enabled"]`
+    );
+
+    if (!sectionCheckbox || !sectionCheckbox.checked) return;
+
+    // стоимость секции
+    if (typeof card.count === "number") {
+      total += card.count;
+    }
+
+    // items
+    card.items?.forEach(item => {
+      if (item.type === "checkbox" && typeof item.count === "number") {
+        const input = document.querySelector(
+          `input[name="${card.id}__${item.id}"]`
+        );
+        if (input?.checked) {
+          total += item.count;
+        }
+      }
+
+      if (item.type === "counter" && typeof item.count === "number") {
+        const input = document.querySelector(
+          `input[name="${card.id}__${item.id}"]`
+        );
+        if (input) {
+          total += Number(input.value) * item.count;
+        }
+      }
+    });
+  });
+
+  return total;
+}
+
+function calculateMontageTotal() {
+  const radio = document.querySelector(".montage-radio:checked");
+  const duration = Number(
+    document.querySelector("#montageDurationHidden")?.value ?? 0
+  );
+
+  if (!radio) return 0;
+
+  const selected = MONTAGE_CONFIG.find(c => c.id === radio.value);
+  if (!selected) return 0;
+
+  const base = selected.count ?? 0;
+  const perMinute = 1200;
+
+  return base + duration * perMinute;
+}
+
+function updateTotalUI() {
+  const valueEls = document.querySelectorAll(
+    `${activeMode === "service" ? "#configForm" : "#montageForm"} .countValue`
+  );
+
+  const total =
+    activeMode === "service"
+      ? calculateServiceTotal()
+      : calculateMontageTotal();
+
+  valueEls.forEach(el => {
+    el.textContent = `${total.toLocaleString("ru-RU")} ₽`;
+  });
+}
+
 
 // =========================
 // FORM LOGIC
@@ -853,7 +935,12 @@ serviceForm.addEventListener("submit", (e) => {
 
 montageForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const data = Object.fromEntries(new FormData(montageForm).entries());
+
+  const data = {
+    ...Object.fromEntries(new FormData(montageForm)),
+    total_price: calculateMontageTotal()
+  };
+
   console.log("MONTAGE RESULT:", data);
 });
 
