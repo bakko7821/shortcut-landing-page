@@ -571,7 +571,7 @@ section.aboutUs .textbox {
 }
 
 h2.titleText,
-section.configurator h2.titleText span {
+section.configurator h2.titleText a {
     font-family: "PT Mono", monospace;
     font-weight: 400;
     white-space: nowrap;
@@ -716,12 +716,15 @@ section.configurator {
     justify-content: space-between;
     gap: 287px;
     padding: 16px 40px;
-    height: 600px;
     background-color: var(--white);
 }
 
-section.configurator h2.titleText span {
+section.configurator h2.titleText a {
     opacity: 0.5;
+}
+
+section.configurator h2.titleText a.active {
+    opacity: 1;
 }
 
 section.configurator .leftBox {
@@ -778,6 +781,14 @@ section.configurator form #configuratorRoot {
     justify-content: center;
 }
 
+#serviceRoot, #montageRoot {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 8px;
+}
+
 section.configurator form article input[type="checkbox"]{
   position: absolute;
   width: 1px;
@@ -813,7 +824,6 @@ section.configurator form article input[type="checkbox"]{
     transition: opacity 0.15s ease;
 }
 
-/* ✅ checked — применяем к input и красим соседний span */
 section.configurator form article input[type="checkbox"]:checked + .custom-checkbox{
     border-radius: 2px;
     background: #120303;
@@ -824,18 +834,66 @@ section.configurator form article input[type="checkbox"]:checked + .custom-check
   opacity: 1;
 }
 
-/* ✅ focus */
 section.configurator form article input[type="checkbox"]:focus-visible + .custom-checkbox{
   outline: 3px solid rgba(18, 3, 3, 0.35);
   outline-offset: 2px;
 }
 
-/* ✅ disabled */
 section.configurator form article input[type="checkbox"].blocked + .custom-checkbox {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
+section.configurator form article input[type="radio"]{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.custom-checkbox--radio{
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid #E8E8E8;
+  background-color: #D8D8D8;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s;
+}
+
+.custom-checkbox--radio::after{
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: #120303;
+  border-radius: 999px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: 0.15s;
+}
+
+section.configurator form article input[type="radio"]:checked + .custom-checkbox--radio{
+  background: #D8D8D8;
+}
+
+section.configurator form article input[type="radio"]:checked + .custom-checkbox--radio::after{
+  opacity: 1;
+  transform: scale(1);
+}
+
+section.configurator form article input[type="radio"]:focus-visible + .custom-checkbox--radio{
+  outline: 3px solid rgba(18, 3, 3, 0.35);
+  outline-offset: 2px;
+}
 
 section.configurator form article.card {
     width: 100%;

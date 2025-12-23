@@ -282,16 +282,27 @@
                 </div>
             </div>
         </section>
-        <section class="configurator reveal" id="#configurator">
+        <section class="configurator reveal" id="configurator">
             <div class="leftBox">
-                <h2 class="titleText">Конфигуратор услуг<span>/монтаж</span></h2>
+                <h2 class="titleText">
+                Конфигуратор
+                <a class="serviceButton active" href="javascript:void(0)">услуг</a> /
+                <a class="montageButton" href="javascript:void(0)">монтаж</a>
+                </h2>
+
                 <div class="imageBox">
-                    <img src="images/cameraState/camera1.png" alt="" id="cameraImage">
+                <img src="images/cameraState/camera1.png" alt="" id="cameraImage">
                 </div>
                 <span class="descriptionText">*Здесь вы можете выбрать список услуг</span>
             </div>
+
             <form id="configForm" action="#">
-                <div id="configuratorRoot"></div>
+                <div id="serviceRoot"></div>
+                <button class="submitFormButton" type="submit">Заказать звонок</button>
+            </form>
+
+            <form id="montageForm" action="#" hidden>
+                <div id="montageRoot"></div>
                 <button class="submitFormButton" type="submit">Заказать звонок</button>
             </form>
         </section>

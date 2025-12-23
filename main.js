@@ -34,7 +34,7 @@ const videos = [
 ];
 
 // =========================
-// CONFIGURATOR DATA
+// SERVICE CONFIGURATOR DATA
 // =========================
 const CONFIG = [
   {
@@ -127,6 +127,53 @@ const CONFIG = [
     ],
   },
 ];
+
+// =========================
+// MONTAGE CONFIGURATOR DATA
+// =========================
+
+const MONTAGE_CONFIG = [
+  {
+    id: "podcast",
+    title: "Подкаст",
+    type: "sectionCheckbox",
+    defaultChecked: false,
+    count: 60000,
+    items: []
+  },
+  {
+    id: "expert_video",
+    title: "Экспертное видео",
+    type: "sectionCheckbox",
+    defaultChecked: false,
+    count: 60000,
+    items: []
+  },
+  {
+    id: "artistic",
+    title: "Художественный",
+    type: "sectionCheckbox",
+    defaultChecked: false,
+    count: 60000,
+    items: []
+  },
+  {
+    id: "ad",
+    title: "Реклама",
+    type: "sectionCheckbox",
+    defaultChecked: false,
+    count: 60000,
+    items: []
+  },
+  {
+    id: "reals",
+    title: "Рилсы",
+    type: "sectionCheckbox",
+    defaultChecked: false,
+    count: 60000,
+    items: []
+  },
+]
 
 // =========================
 // CUSTOM CURSOR
@@ -359,11 +406,8 @@ document.querySelectorAll('.reveal').forEach(el => {
 });
 
 // =========================
-// CONFIGURATOR RENDER
+// CONFIGURATOR RENDER HELPERS (WITH SVG)
 // =========================
-
-const root = document.querySelector("#configuratorRoot");
-const form = document.querySelector("#configForm");
 
 function escapeHtml(s) {
   return String(s)
@@ -374,82 +418,13 @@ function escapeHtml(s) {
     .replaceAll("'", "&#039;");
 }
 
-function renderConfigurator() {
-  root.innerHTML = CONFIG.map(renderCard).join("");
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-  const cameraImage = document.querySelector("#cameraImage"); // Ссылка на изображение камеры
-  let cameraState = 1; // Начальное состояние камеры (camera1.png)
-
-  // Функция для отслеживания изменений чекбоксов
-  const checkboxes = document.querySelectorAll(".section-toggle");  // Все чекбоксы
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener("change", (e) => {
-      // Проверяем, сколько чекбоксов выбрано
-      const selectedCheckboxes = document.querySelectorAll(".section-toggle:checked").length;
-
-      // Обновляем состояние камеры в зависимости от выбранных чекбоксов
-      cameraState = Math.min(selectedCheckboxes + 1, 6); // Максимум camera6.png
-
-      // Плавно меняем изображение с эффектом фейда
-      cameraImage.style.opacity = 0; // Сначала скрываем изображение
-
-      // После того как изображение исчезло, меняем его источник
-      setTimeout(() => {
-        cameraImage.src = `images/cameraState/camera${cameraState}.png`;
-
-        // После того как источник изменился, показываем изображение снова с фейдом
-        cameraImage.style.opacity = 1; // Возвращаем изображение с плавным фейдом
-      }, 300); // Это время должно совпадать с временем анимации в CSS (0.5s)
-    });
-  });
-});
-
-
-function renderCard(card) {
-  const sectionInputId = `section-${card.id}`;
-
-  return `
-    <article class="card" id="${escapeHtml(card.id)}" data-card-id="${escapeHtml(card.id)}">
-      <div class="preview">
-        <div class="textBox">
-          <span>${escapeHtml(card.title)}</span>
-          <button type="button" class="dropDownButton" aria-expanded="false" aria-controls="content-${escapeHtml(card.id)}">
-            <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M12.7111 8.6212L18.3681 2.9642L16.9541 1.5502L12.0041 6.5002L7.05414 1.5502L5.64014 2.9642L11.2971 8.6212C11.4847 8.80867 11.739 8.91399 12.0041 8.91399C12.2693 8.91399 12.5236 8.80867 12.7111 8.6212Z"
-                fill="black"/>
-            </svg>
-          </button>
-        </div>
-
-        <label class="checkWrap">
-          <input type="checkbox"
-                 class="section-toggle"
-                 id="${sectionInputId}"
-                 name="${escapeHtml(card.id)}__enabled"
-                 ${card.defaultChecked ? "checked" : ""}>
-          <span class="custom-checkbox" aria-hidden="true"></span>
-        </label>
-      </div>
-
-      <div class="content" id="content-${escapeHtml(card.id)}" hidden>
-        <ul>
-          ${card.items.map(item => renderItem(card, item)).join("")}
-        </ul>
-      </div>
-    </article>
-  `;
-}
-
 function renderItem(card, item) {
   if (item.type === "text") {
     return `<li>${escapeHtml(item.label)}</li>`;
   }
 
   if (item.type === "checkbox") {
-    const id = `${card.id}__${item.id}`;
+    const id = `${card.id}__${item.id ?? escapeHtml(item.label)}`;
     return `
       <li>
         <span>${escapeHtml(item.label)}</span>
@@ -471,21 +446,51 @@ function renderItem(card, item) {
     return `
       <li>
         <span>${escapeHtml(item.label)}</span>
-        <label class="counter" data-counter="${escapeHtml(id)}"
+        <label class="counter"
+               data-counter="${escapeHtml(id)}"
                data-min="${item.min ?? 1}"
                data-max="${item.max ?? 999}"
                data-step="${item.step ?? 1}">
+          
           <button type="button" class="plus" aria-label="Увеличить">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3.33325 7.99998H7.99992M7.99992 7.99998H12.6666M7.99992 7.99998V3.33331M7.99992 7.99998V12.6666" stroke="#120303" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.33325 7.99998H7.99992M7.99992 7.99998H12.6666
+                       M7.99992 7.99998V3.33331
+                       M7.99992 7.99998V12.6666"
+                    stroke="#120303"
+                    stroke-width="1.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
             </svg>
           </button>
+
           <span class="count">${value}</span>
+
           <button type="button" class="minus" aria-label="Уменьшить">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11.9999 8.6653H3.99992C3.82311 8.6653 3.65354 8.59507 3.52851 8.47004C3.40349 8.34502 3.33325 8.17545 3.33325 7.99864C3.33325 7.82183 3.40349 7.65226 3.52851 7.52723C3.65354 7.40221 3.82311 7.33197 3.99992 7.33197H11.9999C12.1767 7.33197 12.3463 7.40221 12.4713 7.52723C12.5963 7.65226 12.6666 7.82183 12.6666 7.99864C12.6666 8.17545 12.5963 8.34502 12.4713 8.47004C12.3463 8.59507 12.1767 8.6653 11.9999 8.6653Z" fill="#120303"/>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.9999 8.6653H3.99992
+                       C3.82311 8.6653 3.65354 8.59507
+                       3.52851 8.47004
+                       C3.40349 8.34502 3.33325 8.17545
+                       3.33325 7.99864
+                       C3.33325 7.82183 3.40349 7.65226
+                       3.52851 7.52723
+                       C3.65354 7.40221 3.82311 7.33197
+                       3.99992 7.33197H11.9999
+                       C12.1767 7.33197 12.3463 7.40221
+                       12.4713 7.52723
+                       C12.5963 7.65226 12.6666 7.82183
+                       12.6666 7.99864
+                       C12.6666 8.17545 12.5963 8.34502
+                       12.4713 8.47004
+                       C12.3463 8.59507 12.1767 8.6653
+                       11.9999 8.6653Z"
+                    fill="#120303"/>
             </svg>
           </button>
+
           <input type="hidden" name="${escapeHtml(id)}" value="${value}">
         </label>
       </li>
@@ -495,33 +500,188 @@ function renderItem(card, item) {
   return "";
 }
 
-renderConfigurator();
+function renderCard(card) {
+  const sectionInputId = `section-${card.id}`;
+  const items = Array.isArray(card.items) ? card.items : [];
+
+  return `
+    <article class="card" id="${escapeHtml(card.id)}">
+      <div class="preview">
+        <div class="textBox">
+          <span>${escapeHtml(card.title)}</span>
+
+          <button type="button"
+                  class="dropDownButton"
+                  aria-expanded="false"
+                  aria-controls="content-${escapeHtml(card.id)}">
+            <svg width="24" height="12" viewBox="0 0 24 12" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M12.7111 8.6212L18.3681 2.9642
+                   L16.9541 1.5502
+                   L12.0041 6.5002
+                   L7.05414 1.5502
+                   L5.64014 2.9642
+                   L11.2971 8.6212
+                   C11.4847 8.80867 11.739 8.91399
+                   12.0041 8.91399
+                   C12.2693 8.91399 12.5236 8.80867
+                   12.7111 8.6212Z"
+                fill="black"/>
+            </svg>
+          </button>
+        </div>
+
+        <label class="checkWrap">
+          <input type="checkbox"
+                 class="section-toggle"
+                 id="${sectionInputId}"
+                 name="${escapeHtml(card.id)}__enabled"
+                 ${card.defaultChecked ? "checked" : ""}>
+          <span class="custom-checkbox" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="content" id="content-${escapeHtml(card.id)}" hidden>
+        <ul>
+          ${items.map(item => renderItem(card, item)).join("")}
+        </ul>
+      </div>
+    </article>
+  `;
+}
+
+function renderMontageCard(card) {
+  const radioId = `montage-${card.id}`;
+
+  return `
+    <article class="card montage-card" id="${escapeHtml(card.id)}">
+      <div class="preview montage-preview">
+        <div class="textBox">
+          <span>${escapeHtml(card.title)}</span>
+        </div>
+
+        <label class="checkWrap checkWrap--radio">
+          <input type="radio"
+                 class="montage-radio"
+                 id="${radioId}"
+                 name="montage_type"
+                 value="${escapeHtml(card.id)}"
+                 ${card.defaultChecked ? "checked" : ""}>
+          <span class="custom-checkbox custom-checkbox--radio" aria-hidden="true"></span>
+        </label>
+      </div>
+    </article>
+  `;
+}
 
 // =========================
-// CONFIGURATOR INTERACTION LOGIC
+// ROOTS / FORMS
 // =========================
-root.addEventListener("click", (e) => {
-  // Клик по кнопке dropDownButton
+
+const serviceRoot = document.querySelector("#serviceRoot");
+const montageRoot = document.querySelector("#montageRoot");
+
+const serviceForm = document.querySelector("#configForm");
+const montageForm = document.querySelector("#montageForm");
+
+const serviceButton = document.querySelector(".serviceButton");
+const montageButton = document.querySelector(".montageButton");
+
+const cameraImage = document.querySelector("#cameraImage");
+
+let activeMode = "service"; // 'service' | 'montage'
+
+// =========================
+// RENDER
+// =========================
+
+function renderConfiguratorInto(rootEl, configArr, renderCardFn) {
+  rootEl.innerHTML = configArr.map(renderCardFn).join("");
+}
+
+
+function setMode(mode) {
+  activeMode = mode;
+  const isService = mode === "service";
+
+  serviceButton.classList.toggle("active", isService);
+  montageButton.classList.toggle("active", !isService);
+
+  if (isService) {
+    renderConfiguratorInto(serviceRoot, CONFIG, renderCard);
+  } else {
+    renderConfiguratorInto(montageRoot, MONTAGE_CONFIG, renderMontageCard);
+  }
+
+  serviceForm.hidden = !isService;
+  montageForm.hidden = isService;
+
+  serviceForm.style.display = isService ? "flex" : "none";
+  montageForm.style.display = isService ? "none" : "flex";
+
+  updateCamera();
+}
+
+
+function getActiveRoot() {
+  return activeMode === "service" ? serviceRoot : montageRoot;
+}
+
+function updateCamera() {
+  const root = getActiveRoot();
+
+  let selected = 0;
+
+  if (activeMode === "service") {
+    selected = root.querySelectorAll(".section-toggle:checked").length;
+  } else {
+    selected = root.querySelectorAll(".montage-radio:checked").length; // 0 или 1
+  }
+
+  const cameraState = Math.min(selected + 1, 6);
+
+  cameraImage.style.opacity = 0;
+  setTimeout(() => {
+    cameraImage.src = `images/cameraState/camera${cameraState}.png`;
+    cameraImage.style.opacity = 1;
+  }, 300);
+}
+
+// init + tab clicks
+document.addEventListener("DOMContentLoaded", () => {
+  setMode("service");
+
+  serviceButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    setMode("service");
+  });
+
+  montageButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    setMode("montage");
+  });
+});
+
+// =========================
+// INTERACTIONS (dropdown + counter) — делегирование на оба root
+// =========================
+
+function handleRootClick(root, e) {
+  // dropdown
   const ddButton = e.target.closest(".dropDownButton");
   if (ddButton) {
     const card = ddButton.closest(".card");
     const content = card.querySelector(".content");
-
-    // Проверяем, открыт ли блок
     const isOpen = content.classList.contains("open");
 
-    // Получаем все карточки
     const allCards = root.querySelectorAll(".card");
-    const allButtons = root.querySelectorAll(".dropDownButton");
 
     allCards.forEach((otherCard) => {
       const otherContent = otherCard.querySelector(".content");
       const otherButton = otherCard.querySelector(".dropDownButton");
 
-      // Скрываем все другие блоки
-      if (otherCard !== card) {
-        otherCard.style.display = "none";
-      }
+      if (otherCard !== card) otherCard.style.display = "none";
 
       otherContent.classList.remove("open");
       otherContent.setAttribute("hidden", "true");
@@ -529,26 +689,23 @@ root.addEventListener("click", (e) => {
       otherButton.setAttribute("aria-expanded", "false");
     });
 
-    // Если блок был закрыт, открываем его и вращаем стрелку
     if (!isOpen) {
       content.classList.add("open");
       content.removeAttribute("hidden");
       ddButton.style.transform = "rotate(180deg)";
       ddButton.setAttribute("aria-expanded", "true");
       card.style.display = "flex";
-      card.style.justifyContent = "start" // Открываем текущую карточку
+      card.style.justifyContent = "start";
     } else {
-      // Если блок был открыт, то возвращаем всем карточкам display: flex
       allCards.forEach((otherCard) => {
         otherCard.style.display = "flex";
-        otherCard.style.justifyContent = "center"
+        otherCard.style.justifyContent = "center";
       });
     }
-
     return;
   }
 
-  // Обработка кликов для счетчиков (плюс/минус)
+  // counter +/- (unchanged)
   const plus = e.target.closest(".plus");
   const minus = e.target.closest(".minus");
   if (plus || minus) {
@@ -561,43 +718,59 @@ root.addEventListener("click", (e) => {
     const step = Number(counter.dataset.step);
 
     let value = Number(input.value);
-
     if (plus) value = Math.min(max, value + step);
     if (minus) value = Math.max(min, value - step);
 
     input.value = String(value);
     countEl.textContent = String(value);
+  }
+}
+
+serviceRoot.addEventListener("click", (e) => handleRootClick(serviceRoot, e));
+montageRoot.addEventListener("click", (e) => handleRootClick(montageRoot, e));
+
+// =========================
+// CHANGE: section toggle -> disable inner inputs + update camera (делегирование)
+// =========================
+
+function handleRootChange(root, e) {
+  // service checkbox
+  const section = e.target.closest(".section-toggle");
+  if (section) {
+    const card = section.closest(".card");
+    const innerInputs = card.querySelectorAll(".content input, .content button");
+    innerInputs.forEach((el) => {
+      el.disabled = !section.checked;
+    });
+    updateCamera();
     return;
   }
-});
 
-// Включение/выключение секции
-root.addEventListener("change", (e) => {
-  const section = e.target.closest(".section-toggle");
-  if (!section) return;
+  // montage radio
+  const radio = e.target.closest(".montage-radio");
+  if (radio) {
+    updateCamera();
+    return;
+  }
+}
 
-  const card = section.closest(".card");
-  const innerInputs = card.querySelectorAll(".content input, .content button");
-  innerInputs.forEach((el) => {
-    // Отключаем внутренние элементы, если секция выключена
-    el.disabled = !section.checked;
-  });
-});
+serviceRoot.addEventListener("change", (e) => handleRootChange(serviceRoot, e));
+montageRoot.addEventListener("change", (e) => handleRootChange(montageRoot, e));
 
 // =========================
 // FORM LOGIC
 // =========================
 
-form.addEventListener("submit", (e) => {
+serviceForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  const data = Object.fromEntries(new FormData(serviceForm).entries());
+  console.log("SERVICE RESULT:", data);
+});
 
-  const fd = new FormData(form);
-  const data = Object.fromEntries(fd.entries());
-
-  console.log("CONFIG RESULT:", data);
-
-  // тут можешь отправлять на сервер:
-  // fetch('/api', { method:'POST', body: JSON.stringify(data), headers:{'Content-Type':'application/json'} })
+montageForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(montageForm).entries());
+  console.log("MONTAGE RESULT:", data);
 });
 
 // =========================
