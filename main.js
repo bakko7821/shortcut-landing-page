@@ -588,7 +588,70 @@ const montageForm = document.querySelector("#montageForm");
 const serviceButton = document.querySelector(".serviceButton");
 const montageButton = document.querySelector(".montageButton");
 
-const cameraImage = document.querySelector("#cameraImage");
+const descriptionText = document.querySelector("#configDescription");
+const montageDurationBox = document.querySelector(".montageDuration");
+const montageRange = document.querySelector("#montageDurationRange");
+const montageValue = document.querySelector("#montageDurationValue");
+const montageBubble = document.querySelector("#montageDurationBubble");
+const durationTitle = document.querySelector('.durationTitle')
+
+function updateMontageBubble() {
+  const min = Number(montageRange.min);
+  const max = Number(montageRange.max);
+  const val = Number(montageRange.value);
+
+  montageValue.textContent = String(val);
+
+  const percent = (val - min) / (max - min);
+
+  const rangeRect = montageRange.getBoundingClientRect();
+  const bubbleRect = montageBubble.getBoundingClientRect();
+
+  const x =
+    percent * rangeRect.width;
+
+  const offset =
+    x - bubbleRect.width / 2;
+
+  const clamped =
+    Math.max(0, Math.min(offset, rangeRect.width - bubbleRect.width));
+
+  montageBubble.style.left = `${clamped}px`;
+
+  // === OPACITY LOGO ===
+  const montageImg = document.querySelector("#montageImage");
+  if (montageImg) {
+    const opacity = 0.1 + percent * 0.9;
+    montageImg.style.opacity = opacity.toFixed(3);
+  }
+}
+
+
+montageRange.addEventListener("input", updateMontageBubble);
+window.addEventListener("resize", updateMontageBubble);
+
+// первичная установка
+updateMontageBubble();
+
+const SERVICE_IMAGE = "images/cameraState/camera1.png";
+const MONTAGE_IMAGE = "images/montageLogo.png";
+
+function getMainImageEl() {
+  return document.querySelector("#cameraImage") || document.querySelector("#montageImage");
+}
+
+function setMainImage(mode) {
+  const img = getMainImageEl();
+  if (!img) return;
+
+  if (mode === "montage") {
+    img.id = "montageImage";
+    img.src = MONTAGE_IMAGE;
+  } else {
+    img.id = "cameraImage";
+    img.src = SERVICE_IMAGE;
+  }
+}
 
 let activeMode = "service"; // 'service' | 'montage'
 
@@ -620,9 +683,19 @@ function setMode(mode) {
   serviceForm.style.display = isService ? "flex" : "none";
   montageForm.style.display = isService ? "none" : "flex";
 
-  updateCamera();
-}
+  setMainImage(mode);
 
+  // === ЛЕВАЯ ЧАСТЬ ===
+  if (isService) {
+    descriptionText.textContent = "*Здесь вы можете выбрать список услуг";
+    montageDurationBox.style.display = 'none';
+    durationTitle.style.display = 'none';
+  } else {
+    descriptionText.textContent = "*Выберите длительность видео";
+    montageDurationBox.style.display = 'flex';
+    durationTitle.style.display = 'flex';
+  }
+}
 
 function getActiveRoot() {
   return activeMode === "service" ? serviceRoot : montageRoot;
@@ -632,19 +705,24 @@ function updateCamera() {
   const root = getActiveRoot();
 
   let selected = 0;
-
   if (activeMode === "service") {
     selected = root.querySelectorAll(".section-toggle:checked").length;
   } else {
-    selected = root.querySelectorAll(".montage-radio:checked").length; // 0 или 1
+    selected = root.querySelectorAll(".montage-radio:checked").length;
   }
 
   const cameraState = Math.min(selected + 1, 6);
 
-  cameraImage.style.opacity = 0;
+  const img = getMainImageEl();
+  if (!img) return;
+
+  // В режиме montage не трогаем cameraState картинки (там logo)
+  if (activeMode === "montage") return;
+
+  img.style.opacity = 0;
   setTimeout(() => {
-    cameraImage.src = `images/cameraState/camera${cameraState}.png`;
-    cameraImage.style.opacity = 1;
+    img.src = `images/cameraState/camera${cameraState}.png`;
+    img.style.opacity = 1;
   }, 300);
 }
 
@@ -753,6 +831,12 @@ function handleRootChange(root, e) {
     return;
   }
 }
+
+const montageHidden = document.querySelector("#montageDurationHidden");
+
+montageRange.addEventListener("input", () => {
+  montageHidden.value = montageRange.value;
+});
 
 serviceRoot.addEventListener("change", (e) => handleRootChange(serviceRoot, e));
 montageRoot.addEventListener("change", (e) => handleRootChange(montageRoot, e));

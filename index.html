@@ -285,15 +285,41 @@
         <section class="configurator reveal" id="configurator">
             <div class="leftBox">
                 <h2 class="titleText">
-                Конфигуратор
-                <a class="serviceButton active" href="javascript:void(0)">услуг</a> /
-                <a class="montageButton" href="javascript:void(0)">монтаж</a>
+                    Конфигуратор
+                    <a class="serviceButton active">услуг</a> /
+                    <a class="montageButton">монтаж</a>
                 </h2>
 
+                <span class="durationTitle">Выберите длительность и тип видео</span>
+
                 <div class="imageBox">
-                <img src="images/cameraState/camera1.png" alt="" id="cameraImage">
+                    <img src="images/cameraState/camera1.png" alt="" id="cameraImage">
                 </div>
-                <span class="descriptionText">*Здесь вы можете выбрать список услуг</span>
+
+                <div class="montageDuration" hidden>
+                    <div class="durationValue" id="montageDurationBubble">
+                        <span id="montageDurationValue">0</span> мин
+                    </div>
+
+                    <input
+                        type="range"
+                        id="montageDurationRange"
+                        name="duration_minutes"
+                        min="0"
+                        max="160"
+                        step="1"
+                        value="15"
+                    >
+
+                    <div class="durationScale">
+                        <span>0 мин</span>
+                        <span>160+ мин</span>
+                    </div>
+                </div>
+
+                <span class="descriptionText" id="configDescription">
+                    *Здесь вы можете выбрать список услуг
+                </span>
             </div>
 
             <form id="configForm" action="#">
@@ -302,6 +328,7 @@
             </form>
 
             <form id="montageForm" action="#" hidden>
+                <input type="hidden" name="duration_minutes" id="montageDurationHidden" value="15">
                 <div id="montageRoot"></div>
                 <button class="submitFormButton" type="submit">Заказать звонок</button>
             </form>

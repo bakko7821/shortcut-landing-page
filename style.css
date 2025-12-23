@@ -714,8 +714,9 @@ section.configurator {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    gap: 287px;
+    gap: 102px;
     padding: 16px 40px;
+    height: 600px;
     background-color: var(--white);
 }
 
@@ -728,6 +729,8 @@ section.configurator h2.titleText a.active {
 }
 
 section.configurator .leftBox {
+    flex: 3;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -765,7 +768,7 @@ section.configurator .leftBox .descriptionText {
 
 section.configurator form {
     height: 100%;
-    width: 100%;
+    width: 480px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -906,6 +909,60 @@ section.configurator form article.card {
     background-color: var(--background-color);
     border-radius: 12px;
     padding: 24px;
+}
+
+.durationTitle {
+    font-family: "PT Mono", monospace;
+    width: 252px;
+    font-size: var(--fs20);
+    line-height: 1.1;
+    letter-spacing: -0.4px;
+}
+
+.montageDuration{
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.montageDuration input[type="range"]{
+    width: 100%;
+    accent-color: #120303;
+    border: none;
+    outline: none;
+    background: var(--background-color);
+}
+
+.durationScale{
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-color);
+  font-size: var(--fs16);
+  line-height: 1.1;
+  letter-spacing: -0.32px;
+}
+
+.durationValue{
+  position: absolute;
+  top: -32px;               /* высота над ползунком */
+  left: 0;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--text-color);
+  font-size: var(--fs16);
+  line-height: 1.1;
+  letter-spacing: -0.32px;
+  white-space: nowrap;
+  pointer-events: none;      /* чтобы не мешала тащить */
+}
+
+img#montageImage {
+    width: 100%;
+    opacity: 0.1;
 }
 
 section.configurator form article.card .preview {
