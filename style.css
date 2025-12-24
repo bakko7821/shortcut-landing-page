@@ -1316,6 +1316,14 @@ footer .centerBox .applyNowButton:hover {
 }
 
 @media (max-width: 768px) {
+    * {
+        cursor: auto;
+    }
+
+    .custom-cursor {
+        display: none;
+    }
+
     section.advantages img.line.right {
         display: none;
     }
@@ -1404,6 +1412,14 @@ footer .centerBox .applyNowButton:hover {
 
 
 @media (max-width: 390px) {
+    * {
+        cursor: auto;
+    }
+
+    .custom-cursor {
+        display: none;
+    }
+
     section {
         padding: 16px !important;
     }

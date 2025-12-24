@@ -44,15 +44,15 @@ const CONFIG = [
     defaultChecked: false,
     count: 60000,
     items: [
-      { type: "text", label: "Диагностика текущего контента и точек роста" },
-      { type: "text", label: "Анализ ниши и конкурентов" },
-      { type: "text", label: "Создание чата проекта" },
-      { type: "text", label: "Разработка индивидуального стиля, оформление канала" },
-      { type: "text", label: "Индивидуальная ИИ-аналитика бизнеса клиента для более точной адаптации" },
-      { type: "text", label: "Сценарные тезисы по роликам" },
-      { type: "text", label: "Контент-план на месяц" },
-      { type: "text", label: "Формирование рубрик и постоянных форматов" },
-      { type: "text", label: "Определение позиционирования и тональности канала" },
+      { type: "text", label: "Диагностика текущего контента и точек роста." },
+      { type: "text", label: "Анализ ниши и конкурентов." },
+      { type: "text", label: "Создание чата проекта." },
+      { type: "text", label: "Разработка индивидуального стиля, оформление канала." },
+      { type: "text", label: "Индивидуальная ИИ-аналитика бизнеса." },
+      { type: "text", label: "Сценарные тезисы по роликам." },
+      { type: "text", label: "Контент-план на месяц." },
+      { type: "text", label: "Формирование рубрик и постоянных форматов." },
+      { type: "text", label: "Определение позиционирования и тональности канала." },
     ],
   },
   {
@@ -60,6 +60,7 @@ const CONFIG = [
     title: "Реализация",
     type: "sectionCheckbox",
     defaultChecked: false,
+    count: 105000,
     items: [
       {
         type: "counter",
@@ -70,14 +71,15 @@ const CONFIG = [
         step: 1,
         defaultValue: 1,
       },
-      { type: "checkbox", id: "clientShooting", label: "Съемка силами клиента", defaultChecked: false, count: 0 },
-      { type: "checkbox", id: "locations", label: "Подбор локаций для съемок", defaultChecked: false, count: 0 },
-      { type: "checkbox", id: "editing", label: "Монтаж и подготовка к публикации", defaultChecked: false, count: 0 },
-      { type: "checkbox", id: "preview", label: "Превью", defaultChecked: false, count: 1500 },
-      { type: "checkbox", id: "horizontal", label: "Монтаж горизонтальных роликов", defaultChecked: false, count: 0 },
-      { type: "checkbox", id: "verticalCuts", label: "Нарезка вертикальных роликов для соцсетей", defaultChecked: false, count: 0 },
-      { type: "checkbox", id: "seo", label: "Оптимизация роликов (заголовок, описание, теги)", defaultChecked: false, count: 0 },
-      { type: "checkbox", id: "publish", label: "Публикация на платформах YouTube, Telegram, ВКонтакте, Rutube", defaultChecked: false, count: 0},
+      { type: "checkbox", id: "clientShooting", label: "Съемка силами клиента.", defaultChecked: false, count: 0 },
+      { type: "checkbox", id: "shortcutShooting", label: "Съемка производится командой Shortcut.", defaultChecked: false, count: 50000 },
+      { type: "text", id: "locations", label: "Подбор локаций для съемок.", defaultChecked: false, count: 0 },
+      { type: "text", id: "editing", label: "Монтаж и подготовка к публикации.", defaultChecked: false, count: 0 },
+      { type: "text", id: "preview", label: "Превью.", defaultChecked: false, count: 1500 },
+      { type: "text", id: "horizontal", label: "Монтаж горизонтальных роликов.", defaultChecked: false, count: 0 },
+      { type: "text", id: "verticalCuts", label: "Нарезка вертикальных роликов для соцсетей.", defaultChecked: false, count: 0 },
+      { type: "text", id: "seo", label: "Оптимизация роликов (заголовок, описание, теги).", defaultChecked: false, count: 0 },
+      { type: "text", id: "publish", label: "Публикация на платформах YouTube, Telegram, ВКонтакте, Rutube.", defaultChecked: false, count: 0},
     ],
   },
   {
@@ -87,15 +89,12 @@ const CONFIG = [
     defaultChecked: false,
     count: 25000,
     items: [
-      { type: "checkbox", label: "Аналитика и разбор результатов", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Корректировка форматов и подачи", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Обновление контент-плана для YouTube", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Продюсерское сопровождение", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Созвон", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Разбор", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Контроль задач и сроков", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Актуализация контента", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Ответы на комментарии роликов", defaultChecked: false, count: 0  },
+      { type: "text", label: "Аналитика и разбор результатов.", defaultChecked: false, count: 0  },
+      { type: "text", label: "Корректировка форматов и подачи.", defaultChecked: false, count: 0  },
+      { type: "text", label: "Обновление контент-плана для YouTube.", defaultChecked: false, count: 0  },
+      { type: "text", label: "Контроль задач и сроков.", defaultChecked: false, count: 0  },
+      { type: "text", label: "Актуализация контента.", defaultChecked: false, count: 0  },
+      { type: "text", label: "Ответы на комментарии роликов.", defaultChecked: false, count: 0  },
     ],
   },
   {
@@ -105,12 +104,12 @@ const CONFIG = [
     defaultChecked: false,
     count: 100000,
     items: [
-      { type: "checkbox", label: "Актуализация контент-плана", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Создание и оформление постов", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Сторис и короткие форматы", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Взаимодействие с аудиторией", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Аналитика и отчётность", defaultChecked: false, count: 0  },
-      { type: "checkbox", label: "Поиск рекламодателей и партнёров", defaultChecked: false, count: 0  },
+      { type: "checkbox", label: "Актуализация контент-плана.", defaultChecked: false, count: 20000  },
+      { type: "checkbox", label: "Создание и оформление постов.", defaultChecked: false, count: 30000  },
+      { type: "checkbox", label: "Сторис и короткие форматы.", defaultChecked: false, count: 10000  },
+      { type: "checkbox", label: "Взаимодействие с аудиторией.", defaultChecked: false, count: 10000  },
+      { type: "checkbox", label: "Аналитика и отчётность.", defaultChecked: false, count: 10000  },
+      { type: "checkbox", label: "Поиск рекламодателей и партнёров.", defaultChecked: false, count: 20000  },
     ],
   },
   {
@@ -120,10 +119,10 @@ const CONFIG = [
     defaultChecked: false,
     count: 19000,
     items: [
-      { type: "checkbox", label: "Основы композиции", defaultChecked: false, count: 0   },
-      { type: "checkbox", label: "Настройки съемочного оборудования или телефона", defaultChecked: false, count: 0   },
-      { type: "checkbox", label: "Техники съемки для качественного контента", defaultChecked: false, count: 0   },
-      { type: "checkbox", label: "Практические рекомендации для самостоятельного производства роликов", defaultChecked: false, count: 0   },
+      { type: "checkbox", label: "Основы композиции.", defaultChecked: false, count: 4000   },
+      { type: "checkbox", label: "Настройки съемочного оборудования или телефона.", defaultChecked: false, count: 4000   },
+      { type: "checkbox", label: "Техники съемки для качественного контента.", defaultChecked: false, count: 5000   },
+      { type: "checkbox", label: "Практические рекомендации для самостоятельного производства роликов.", defaultChecked: false, count: 2000   },
     ],
   },
 ];
@@ -138,7 +137,7 @@ const MONTAGE_CONFIG = [
     title: "Подкаст",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 1200,
+    count: 600,
     items: []
   },
   {
@@ -146,7 +145,7 @@ const MONTAGE_CONFIG = [
     title: "Экспертное видео",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 1200,
+    count: 1400,
     items: []
   },
   {
@@ -154,7 +153,7 @@ const MONTAGE_CONFIG = [
     title: "Художественный",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 1200,
+    count: 0,
     items: []
   },
   {
@@ -162,7 +161,7 @@ const MONTAGE_CONFIG = [
     title: "Реклама",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 1200,
+    count: 0,
     items: []
   },
   {
@@ -170,7 +169,7 @@ const MONTAGE_CONFIG = [
     title: "Рилсы",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 1000,
+    count: 1500,
     items: []
   },
 ]
@@ -452,21 +451,6 @@ function renderItem(card, item) {
                data-max="${item.max ?? 999}"
                data-step="${item.step ?? 1}">
           
-          <button type="button" class="plus" aria-label="Увеличить">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="M3.33325 7.99998H7.99992M7.99992 7.99998H12.6666
-                       M7.99992 7.99998V3.33331
-                       M7.99992 7.99998V12.6666"
-                    stroke="#120303"
-                    stroke-width="1.33333"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"/>
-            </svg>
-          </button>
-
-          <span class="count">${value}</span>
-
           <button type="button" class="minus" aria-label="Уменьшить">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
@@ -488,6 +472,21 @@ function renderItem(card, item) {
                        C12.3463 8.59507 12.1767 8.6653
                        11.9999 8.6653Z"
                     fill="#120303"/>
+            </svg>
+          </button>
+
+          <span class="count">${value}</span>
+
+          <button type="button" class="plus" aria-label="Увеличить">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.33325 7.99998H7.99992M7.99992 7.99998H12.6666
+                       M7.99992 7.99998V3.33331
+                       M7.99992 7.99998V12.6666"
+                    stroke="#120303"
+                    stroke-width="1.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
             </svg>
           </button>
 
@@ -902,9 +901,8 @@ function calculateMontageTotal() {
   if (!selected) return 0;
 
   const base = selected.count ?? 0;
-  const perMinute = 1200;
 
-  return base + duration * perMinute;
+  return base * duration
 }
 
 function updateTotalUI() {
