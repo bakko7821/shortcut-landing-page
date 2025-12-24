@@ -266,7 +266,7 @@ section.hero {
     display: flex;
     justify-content: space-between;
     margin-top: 155px;
-    gap: 145px;
+    gap: clamp(88px, 10vw + 58px, 237px);
     width: 100%;
     position: relative;
 }
@@ -293,8 +293,8 @@ section.hero .rightLines svg {
 }
 
 section.hero .cameraImage {
-    min-width: 188px;
-    width: 23%;
+    min-width: 120px;
+    width: 27%;
     z-index: 998;
     position: absolute;
     top: 50%;
@@ -1233,6 +1233,16 @@ footer .centerBox .applyNowButton:hover {
 }
 
 @media (max-width: 1024px) {
+    section.hero {
+        width: 120vw;   
+        margin: 0 auto;
+        position: relative;
+        left: 50%; 
+        transform: translateX(-50%); 
+        box-sizing: border-box;
+        margin-top: 110px;
+    }
+
     section.advantages img.line.right {
         display: none;
     }
@@ -1312,14 +1322,6 @@ footer .centerBox .applyNowButton:hover {
 
     body {
         max-width: 768px;
-    }
-
-    section.hero .leftLines {
-        align-items: start;
-    }
-
-    section.hero .rightLines {
-        align-items: end;
     }
 
     .line-wrapper.tl .labelBox {
@@ -1423,22 +1425,6 @@ footer .centerBox .applyNowButton:hover {
         line-height: 1;
     }
 
-    section.hero {
-        width: 600px;   
-        margin: 0 auto;
-        position: relative;
-        left: 50%; 
-        transform: translateX(-50%); 
-        box-sizing: border-box;
-        margin-top: 110px;
-    }
-
-    section.hero .cameraImage {
-        min-width: 120px;
-        width: 120px;
-        height: 120px;
-    }
-
     .label {
         font-size: clamp(0.5rem, 2vh, 0.625rem);
     }
@@ -1469,24 +1455,6 @@ footer .centerBox .applyNowButton:hover {
         flex-direction: row-reverse;
         bottom: -8px;
         left: 20px;
-    }
-
-    section.hero .leftLines {
-        position: relative;
-        left: 30px;
-    }
-
-    section.hero .leftLines .svg-container {
-        left: -30px;
-    }
-
-    section.hero .rightLines .svg-container {
-        left: 30px;
-    }
-
-    section.hero .rightLines {
-        position: relative;
-        left: -30px;
     }
 
     section.applyNow {
