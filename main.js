@@ -927,22 +927,66 @@ function updateTotalUI() {
 // FORM LOGIC
 // =========================
 
+// Преобразуем конфиг в список выбранных услуг
+function getSelectedServices(config, formData) {
+  let selectedServices = [];
+
+  config.forEach(section => {
+    section.items.forEach(item => {
+      // Сопоставляем ключ из formData с id в конфиге
+      const formKey = `${section.id}__${item.id}`;
+
+      // Проверяем, существует ли такой ключ в formData и равно ли его значение "on"
+      if (formData[formKey] === "on") {
+        selectedServices.push(item.label);
+      }
+    });
+  });
+
+  return selectedServices;
+}
+
+function sendDataToTelegram(config, formData) {
+  const selectedServices = getSelectedServices(config, formData);
+  console.log(selectedServices); // Проверка выбранных услуг
+
+  if (selectedServices.length > 0) {
+    const message = `Выбранные услуги:\n${selectedServices.join('\n')}`;
+
+    const telegramLink = `https://t.me/bakko28?text=${encodeURIComponent(message)}`;
+
+    window.location.href = telegramLink;
+  } else {
+    alert('Пожалуйста, выберите хотя бы одну услугу.');
+  }
+}
+
 serviceForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const data = Object.fromEntries(new FormData(serviceForm).entries());
-  console.log("SERVICE RESULT:", data);
+  
+  // Получаем данные из формы в виде объекта
+  const formData = Object.fromEntries(new FormData(serviceForm).entries());
+  console.log("SERVICE RESULT:", formData); // Проверка, что пришли данные
+  
+  // Отправляем данные в Telegram
+  sendDataToTelegram(CONFIG, formData);
 });
 
 montageForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  // Получаем данные из формы в виде объекта
   const data = {
     ...Object.fromEntries(new FormData(montageForm)),
     total_price: calculateMontageTotal()
   };
 
   console.log("MONTAGE RESULT:", data);
+  
+  // Отправляем данные в Telegram
+  sendDataToTelegram(MONTAGE_CONFIG, data);
 });
+
 
 // =========================
 // LOAD CONTENT
