@@ -95,7 +95,7 @@
     --white: #ffffff;
     --fs48: clamp(2.5rem, 2vh, 3rem);
     --fs32: clamp(1.8rem, 2vh, 2rem);
-    --fs24: clamp(1.25rem, 2vw, 1.5rem);
+    --fs24: clamp(1rem, 2vw, 1.5rem);
     --fs20: clamp(1rem, 2vh, 1.25rem);
     --fs16: clamp(0.875rem, 2vh, 1rem);
     --fs14: clamp(0.625rem, 2vh, 0.875rem);
@@ -1424,6 +1424,12 @@ footer .centerBox .applyNowButton:hover {
     }
 
     section.hero {
+        width: 600px;   
+        margin: 0 auto;
+        position: relative;
+        left: 50%; 
+        transform: translateX(-50%); 
+        box-sizing: border-box;
         margin-top: 110px;
     }
 
