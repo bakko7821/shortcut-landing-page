@@ -95,7 +95,7 @@
     --white: #ffffff;
     --fs48: clamp(2.5rem, 2vh, 3rem);
     --fs32: clamp(1.8rem, 2vh, 2rem);
-    --fs24: clamp(1.25rem, 2vh, 1.5rem);
+    --fs24: clamp(1.25rem, 2vw, 1.5rem);
     --fs20: clamp(1rem, 2vh, 1.25rem);
     --fs16: clamp(0.875rem, 2vh, 1rem);
     --fs14: clamp(0.625rem, 2vh, 0.875rem);
@@ -570,14 +570,23 @@ section.aboutUs .textbox {
     max-width: 574px;
 }
 
-h2.titleText,
-section.configurator h2.titleText a {
+h2.titleText {
     font-family: "PT Mono", monospace;
     font-weight: 400;
     white-space: nowrap;
     font-size: var(--fs48);
     letter-spacing: -0.96px;
     line-height: 1.1;
+}
+
+section.configurator h2.titleText,
+section.configurator h2.titleText a {
+    font-family: "PT Mono", monospace;
+    font-weight: 400;
+    white-space: nowrap;
+    font-size: 1.5rem;
+    letter-spacing: -0.48px;
+    line-height: 1;
 }
 
 section.aboutUs .textbox .descriptionText {
@@ -790,6 +799,7 @@ section.configurator form #configuratorRoot {
     align-items: start;
     justify-content: center;
     gap: 8px;
+    height: 100%;
 }
 
 section.configurator form article input[type="checkbox"]{
@@ -1028,6 +1038,12 @@ section.configurator form .submitFormButton:hover {
     color: var(--black);
 }
 
+section.configurator form .submitFormButton .countValue {
+    color: var(--white);
+    opacity: 0.5;
+    font-weight: 400;
+}
+
 label.counter {
     display: flex;
     align-items: center;
@@ -1060,7 +1076,8 @@ label.counter {
 
 .content.open {
   display: block;
-  max-height: 1000px; /* максимальная высота блока, чтобы дать анимацию */
+  height: 100%;
+  max-height: 100%;
   transition: max-height 0.3s ease-in;
 }
 
@@ -1276,6 +1293,16 @@ footer .centerBox .applyNowButton:hover {
         font-size: var(--fs14);
     }
 
+    section.configurator h2.titleText,
+    section.configurator h2.titleText a {
+        font-size: var(--fs24);
+        line-height: 24px;
+    }
+
+    section.configurator form {
+        width: 450px;
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -1360,6 +1387,16 @@ footer .centerBox .applyNowButton:hover {
         flex: 0;
         justify-content: center;
         align-items: center;
+    }
+
+    section.configurator {
+        flex-direction: column;
+        height: auto;
+        gap: 32px;
+    }
+
+    section.configurator form {
+        width: 100%;
     }
 }
 
