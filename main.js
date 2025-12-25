@@ -60,7 +60,7 @@ const CONFIG = [
     title: "Реализация",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 105000,
+    count: 26500,
     items: [
       {
         type: "counter",
@@ -921,10 +921,23 @@ function calculateServiceTotal() {
 
     if (!sectionCheckbox || !sectionCheckbox.checked) return;
 
-    // стартовая стоимость секции
-    let sectionTotal = card.count ?? 0;
+    let sectionTotal = 0;
 
-    // перебираем items
+    // Получаем количество роликов для блока "realization" или 1 по умолчанию
+    let videosCount = 1;
+    if (card.id === "realization") {
+      const counterInput = document.querySelector(
+        `input[name="realization__videosCount"]`
+      );
+      videosCount = counterInput ? Number(counterInput.value) : 1;
+
+      // базовая стоимость секции умножаем на количество роликов
+      sectionTotal += (card.count || 0) * videosCount;
+    } else {
+      // для остальных секций просто добавляем card.count
+      sectionTotal += card.count || 0;
+    }
+
     card.items?.forEach(item => {
       if (item.type === "checkbox" && typeof item.count === "number") {
         const input = document.querySelector(
@@ -949,7 +962,6 @@ function calculateServiceTotal() {
           `input[name="${card.id}__${item.id}"]`
         );
         if (input) {
-          // Для обычных блоков counter прибавляем поштучно
           if (card.id !== "realization") {
             sectionTotal += Number(input.value) * item.count;
           }
@@ -957,18 +969,6 @@ function calculateServiceTotal() {
       }
     });
 
-    // Особая логика для блока "Реализация"
-    if (card.id === "realization") {
-      const counterInput = document.querySelector(
-        `input[name="realization__videosCount"]`
-      );
-      const videosCount = counterInput ? Number(counterInput.value) : 1;
-
-      // итоговая стоимость секции умножается на количество роликов
-      sectionTotal *= videosCount;
-    }
-
-    // добавляем к общему total
     total += sectionTotal;
   });
 
