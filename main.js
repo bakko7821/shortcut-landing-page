@@ -1053,7 +1053,7 @@ document.addEventListener('change', function (event) {
   // Обратная механика: при выборе чекбокса в preview, активируются все чекбоксы в content
   if (target.matches('.section-toggle')) {
     const cardId = target.closest('.card').id;
-    const contentCheckboxes = document.querySelectorAll(`#${cardId} .content input[type="radio"]`);
+    const contentCheckboxes = document.querySelectorAll(`#${cardId} .content input[type="radio"], #${cardId} .content input[type="checkbox"]`);
 
     if (target.checked) {
       if (cardId === "realization") {
