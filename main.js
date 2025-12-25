@@ -117,7 +117,7 @@ const CONFIG = [
     title: "Обучение",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 19000,
+    count: 15000,
     items: [
       { type: "checkbox", label: "Основы композиции.", defaultChecked: false, count: 4000   },
       { type: "checkbox", label: "Настройки съемочного оборудования или телефона.", defaultChecked: false, count: 4000   },
@@ -181,10 +181,13 @@ const MONTAGE_CONFIG = [
 const cursor = document.querySelector('.custom-cursor');
 
 window.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
+  if (!cursor.classList.contains('is-hidden')) {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  }
 });
 
+// Кликабельные элементы (как было)
 document.querySelectorAll('a, button, .is-clickable').forEach(el => {
   el.addEventListener('mouseenter', () => {
     cursor.classList.add('is-pointer');
@@ -193,6 +196,29 @@ document.querySelectorAll('a, button, .is-clickable').forEach(el => {
   el.addEventListener('mouseleave', () => {
     cursor.classList.remove('is-pointer');
   });
+});
+
+// ===== IFRAMES =====
+document.querySelectorAll('iframe').forEach(iframe => {
+  iframe.addEventListener('mouseenter', () => {
+    cursor.classList.add('is-hidden');
+  });
+
+  iframe.addEventListener('mouseleave', () => {
+    cursor.classList.remove('is-hidden');
+  });
+});
+
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('.checkWrap')) {
+    cursor.classList.add('is-pointer');
+  }
+});
+
+document.addEventListener('mouseout', e => {
+  if (e.target.closest('.checkWrap')) {
+    cursor.classList.remove('is-pointer');
+  }
 });
 
 // =========================
@@ -418,14 +444,24 @@ function escapeHtml(s) {
 }
 
 function renderItem(card, item) {
-  if (item.type === "text") {
-    return `<li>${escapeHtml(item.label)}</li>`;
+  if (item.type === "text" && card.id !== "realization") {
+    // Для всех блоков, кроме "Реализация", текст остаётся видимым
+    return `<li class="text-item">${escapeHtml(item.label)}</li>`;
+  }
+
+  if (item.type === "text" && card.id === "realization") {
+    // В блоке "Реализация" текст скрыт по умолчанию
+    return `<li class="text-item" style="display: none;">${escapeHtml(item.label)}</li>`;
   }
 
   if (item.type === "checkbox") {
     const id = `${card.id}__${item.id ?? escapeHtml(item.label)}`;
+
+    // Логика скрытия/отображения чекбоксов для "Съемка силы клиента" и "Съемка производится командой Shortcut"
+    const isHiddenClass = item.id === "clientShooting" || item.id === "shortcutShooting" ? "hidden" : "";
+
     return `
-      <li>
+      <li class="checkbox-item ${isHiddenClass}">
         <span>${escapeHtml(item.label)}</span>
         <label class="checkWrap">
           <input type="checkbox"
@@ -451,7 +487,7 @@ function renderItem(card, item) {
                data-max="${item.max ?? 999}"
                data-step="${item.step ?? 1}">
           
-          <button type="button" class="minus" aria-label="Уменьшить">
+          <button type="button" class="minus is-clickable" aria-label="Уменьшить">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
               <path d="M11.9999 8.6653H3.99992
@@ -477,7 +513,7 @@ function renderItem(card, item) {
 
           <span class="count">${value}</span>
 
-          <button type="button" class="plus" aria-label="Увеличить">
+          <button type="button" class="plus is-clickable" aria-label="Увеличить">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
               <path d="M3.33325 7.99998H7.99992M7.99992 7.99998H12.6666
@@ -503,6 +539,19 @@ function renderCard(card) {
   const sectionInputId = `section-${card.id}`;
   const items = Array.isArray(card.items) ? card.items : [];
 
+  // Добавляем обработчик для синхронизации чекбоксов
+  let sectionCheckboxHtml = `
+    <label class="checkWrap">
+      <input type="checkbox"
+             class="section-toggle"
+             id="${sectionInputId}"
+             name="${escapeHtml(card.id)}__enabled"
+             ${card.defaultChecked ? "checked" : ""}>
+      <span class="custom-checkbox" aria-hidden="true"></span>
+    </label>
+  `;
+
+  // Рендерим список элементов
   return `
     <article class="card" id="${escapeHtml(card.id)}">
       <div class="preview">
@@ -510,7 +559,7 @@ function renderCard(card) {
           <span>${escapeHtml(card.title)}</span>
 
           <button type="button"
-                  class="dropDownButton"
+                  class="dropDownButton is-clickable"
                   aria-expanded="false"
                   aria-controls="content-${escapeHtml(card.id)}">
             <svg width="24" height="12" viewBox="0 0 24 12" fill="none"
@@ -531,14 +580,7 @@ function renderCard(card) {
           </button>
         </div>
 
-        <label class="checkWrap">
-          <input type="checkbox"
-                 class="section-toggle"
-                 id="${sectionInputId}"
-                 name="${escapeHtml(card.id)}__enabled"
-                 ${card.defaultChecked ? "checked" : ""}>
-          <span class="custom-checkbox" aria-hidden="true"></span>
-        </label>
+        ${sectionCheckboxHtml}
       </div>
 
       <div class="content" id="content-${escapeHtml(card.id)}" hidden>
@@ -920,52 +962,178 @@ function updateTotalUI() {
   });
 }
 
+// =========================
+// HANDLE CHANGE EVENTS (checkboxes, counters)
+// =========================
+
+document.addEventListener('change', function (event) {
+  const target = event.target;
+
+  if (target.matches('.option-checkbox')) {
+    const cardId = target.name.split('__')[0];
+    const card = document.getElementById(cardId);
+
+    // Когда выбирается чекбокс "Съемка производится командой Shortcut", скрываем чекбокс "Съемка силами клиента" и показываем все текстовые элементы
+    if (target.name.includes('shortcutShooting')) {
+      const clientShootingCheckbox = card.querySelector('input[name="realization__clientShooting"]');
+      const textItems = card.querySelectorAll('.text-item');
+
+      if (target.checked) {
+        // Скрываем чекбокс "Съемка силами клиента"
+        clientShootingCheckbox.closest('.checkbox-item').style.display = 'none'; 
+
+        // Показываем все текстовые элементы
+        textItems.forEach(item => item.style.display = 'flex');
+      } else {
+        // Показываем чекбокс "Съемка силами клиента"
+        clientShootingCheckbox.closest('.checkbox-item').style.display = 'flex';
+
+        // Скрываем все текстовые элементы
+        textItems.forEach(item => item.style.display = 'none');
+      }
+    }
+
+    // Синхронизация чекбоксов в контенте и превью
+    const previewCheckbox = card.querySelector('.section-toggle'); // Чекбокс в preview
+
+    // Если хотя бы один чекбокс в контенте активирован, активируем чекбокс в preview
+    const contentCheckboxes = card.querySelectorAll('.content input[type="checkbox"]');
+    const isChecked = Array.from(contentCheckboxes).some(checkbox => checkbox.checked);
+
+    // Если хотя бы один чекбокс выбран в контенте, активируем чекбокс в превью
+    if (isChecked) {
+      previewCheckbox.checked = true;
+    } else {
+      previewCheckbox.checked = false;
+    }
+  }
+
+  // Обратная механика: при выборе чекбокса в preview, активируются все чекбоксы в content
+  if (target.matches('.section-toggle')) {
+    const cardId = target.closest('.card').id; // Получаем id карточки
+    const contentCheckboxes = document.querySelectorAll(`#${cardId} .content input[type="checkbox"]`); // Все чекбоксы в content
+
+    // Если чекбокс в preview выбран, активируем все чекбоксы в content
+    if (target.checked) {
+      if (cardId === "realization") {
+        // В блоке "Реализация" активируем только чекбокс "Съемка силами клиента"
+        const clientShootingCheckbox = document.querySelector(`#${cardId} input[name="realization__clientShooting"]`);
+        clientShootingCheckbox.checked = true;
+
+        // Снимаем галочки с других чекбоксов в content
+        const otherCheckboxes = document.querySelectorAll(`#${cardId} .content input[type="checkbox"]:not([name="realization__clientShooting"])`);
+        otherCheckboxes.forEach(checkbox => checkbox.checked = false);
+      } else {
+        // Для других блоков активируем все чекбоксы в content
+        contentCheckboxes.forEach(checkbox => {
+          checkbox.checked = true;
+        });
+      }
+    } else {
+      // Если чекбокс в preview снят, снимаем все чекбоксы в content
+      contentCheckboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      });
+    }
+  }
+
+  updateCamera()
+  updateTotalUI()
+});
 
 // =========================
 // FORM LOGIC
 // =========================
 
+function getMontageTypeTitle(config, montageTypeId) {
+  const montage = config.find(item => item.id === montageTypeId);
+  return montage ? montage.title : montageTypeId;
+}
+
+function buildMontageBlock(montageConfig, data) {
+  const title = getMontageTypeTitle(montageConfig, data.montage_type);
+  const duration = data.duration_minutes;
+
+  let message = "**Монтаж**\n";
+  message += `• ${title} — ${duration} минут\n`;
+
+  return message;
+}
+
+
 // Преобразуем конфиг в список выбранных услуг
-function getSelectedServices(config, formData) {
-  let selectedServices = [];
+function getSelectedServicesBySections(config, formData) {
+  const result = [];
 
   config.forEach(section => {
-    section.items.forEach(item => {
-      // Сопоставляем ключ из formData с id в конфиге
-      const formKey = `${section.id}__${item.id}`;
+    const sectionEnabled = formData[`${section.id}__enabled`] === "on";
+    if (!sectionEnabled) return;
 
-      // Проверяем, существует ли такой ключ в formData и равно ли его значение "on"
+    const sectionResult = {
+      title: section.title,
+      items: []
+    };
+
+    section.items.forEach(item => {
+      if (item.type !== "checkbox") return;
+
+      // 🔑 КЛЮЧЕВОЙ МОМЕНТ
+      const keyPart = item.id ?? item.label;
+      const formKey = `${section.id}__${keyPart}`;
+
       if (formData[formKey] === "on") {
-        selectedServices.push(item.label);
+        sectionResult.items.push(item.label);
       }
     });
+
+    result.push(sectionResult);
   });
 
-  return selectedServices;
+  return result;
+}
+
+
+function buildTelegramMessage(sections) {
+  let message = "Привет, хотел(а) бы заказать.\nВыбранные услуги:\n\n";
+
+  sections.forEach(section => {
+    message += `**${section.title}**\n`;
+
+    if (section.items.length > 0) {
+      section.items.forEach(item => {
+        message += `• ${item}\n`;
+      });
+    } else {
+      message += `• Блок выбран целиком\n`;
+    }
+
+    message += "\n";
+  });
+
+  return message;
 }
 
 function sendDataToTelegram(config, formData) {
-  const selectedServices = getSelectedServices(config, formData);
-  console.log(selectedServices); // Проверка выбранных услуг
+  const sections = getSelectedServicesBySections(config, formData);
 
-  if (selectedServices.length > 0) {
-    const message = `Выбранные услуги:\n${selectedServices.join('\n')}`;
-
-    const telegramLink = `https://t.me/bakko28?text=${encodeURIComponent(message)}`;
-
-    window.location.href = telegramLink;
-  } else {
-    alert('Пожалуйста, выберите хотя бы одну услугу.');
+  if (sections.length === 0) {
+    alert("Пожалуйста, выберите хотя бы одну услугу.");
+    return;
   }
+
+  const message = buildTelegramMessage(sections);
+
+  const telegramLink = `https://t.me/zdarovaloii?text=${encodeURIComponent(message)}`;
+
+  window.location.href = telegramLink;
 }
 
 serviceForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  
+
   // Получаем данные из формы в виде объекта
   const formData = Object.fromEntries(new FormData(serviceForm).entries());
-  console.log("SERVICE RESULT:", formData); // Проверка, что пришли данные
-  
+
   // Отправляем данные в Telegram
   sendDataToTelegram(CONFIG, formData);
 });
@@ -973,16 +1141,19 @@ serviceForm.addEventListener("submit", (e) => {
 montageForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // Получаем данные из формы в виде объекта
   const data = {
     ...Object.fromEntries(new FormData(montageForm)),
     total_price: calculateMontageTotal()
   };
 
-  console.log("MONTAGE RESULT:", data);
-  
-  // Отправляем данные в Telegram
-  sendDataToTelegram(MONTAGE_CONFIG, data);
+  const message =
+    "Привет, хотел(а) бы заказать.\n\n" +
+    buildMontageBlock(MONTAGE_CONFIG, data);
+
+  const telegramLink = `https://t.me/zdarovaloii?text=${encodeURIComponent(message)}`;
+  console.log(telegramLink);
+
+  window.location.href = telegramLink;
 });
 
 
