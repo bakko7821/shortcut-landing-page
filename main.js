@@ -153,7 +153,7 @@ const MONTAGE_CONFIG = [
     title: "Художественный",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 0,
+    count: NaN,
     items: []
   },
   {
@@ -161,7 +161,7 @@ const MONTAGE_CONFIG = [
     title: "Реклама",
     type: "sectionCheckbox",
     defaultChecked: false,
-    count: 0,
+    count: NaN,
     items: []
   },
   {
@@ -565,7 +565,7 @@ function renderCard(card) {
   `;
 
   const titleHtml = card.title === "Подготовка"
-  ? `<span>${escapeHtml(card.title)} <span class="titleStar is-clickable" title="Выполняется только при начале нашего с вами сотрудничества">*</span></span>`
+  ? `<span>${escapeHtml(card.title)} <span class="titleStar is-clickable" title="Выполняется единоразово, только при начале нашего с вами сотрудничества.">*</span></span>`
   : `<span>${escapeHtml(card.title)}</span>`;
 
   // Рендерим список элементов
