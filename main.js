@@ -1178,7 +1178,7 @@ function sendDataToTelegram(config, formData) {
 
   const telegramLink = `https://t.me/zdarovaloii?text=${encodeURIComponent(message)}`;
 
-  // window.location.href = telegramLink;
+  window.location.href = telegramLink;
 }
 
 serviceForm.addEventListener("submit", (e) => {
