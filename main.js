@@ -1156,6 +1156,36 @@ montageForm.addEventListener("submit", (e) => {
   window.location.href = telegramLink;
 });
 
+// 
+// NAV SCROLL
+// 
+
+document.querySelectorAll('a.navLink').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+
+    // Если это якорь (начинается с #)
+    if (href.startsWith('#')) {
+      e.preventDefault();
+
+      const targetId = href.slice(1);
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const targetY = rect.top + scrollTop - (window.innerHeight / 2) + (rect.height / 2);
+
+      window.scrollTo({
+        top: targetY,
+        behavior: 'smooth'
+      });
+    }
+    // Иначе — внешняя ссылка, пусть браузер сам откроет
+  });
+});
+
+
 
 // =========================
 // LOAD CONTENT
