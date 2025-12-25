@@ -189,13 +189,13 @@ window.addEventListener('mousemove', e => {
 
 // Кликабельные элементы (как было)
 document.addEventListener('mouseenter', (e) => {
-  if (e.target.matches('a, button, .is-clickable')) {
+  if (e.target instanceof Element && e.target.matches('a, button, .is-clickable')) {
     cursor.classList.add('is-pointer');
   }
 }, true); // true — чтобы ловить на фазе захвата
 
 document.addEventListener('mouseleave', (e) => {
-  if (e.target.matches('a, button, .is-clickable')) {
+  if (e.target instanceof Element && e.target.matches('a, button, .is-clickable')) {
     cursor.classList.remove('is-pointer');
   }
 }, true);
@@ -468,22 +468,23 @@ function renderItem(card, item) {
   }
 
   if (item.type === "radio") {
-    const id = `${card.id}__${item.id ?? escapeHtml(item.label)}`;
+      const id = `${card.id}__${item.id ?? escapeHtml(item.label)}`;
+      const value = item.id ?? escapeHtml(item.label); // уникальное значение для каждой радиокнопки
 
-    return `
-      <li class="checkbox-item">
-        <span>${escapeHtml(item.label)}</span>
-        <label class="checkWrap checkWrap-radio">
-          <input type="radio"
+      return `
+        <li class="checkbox-item">
+          <span>${escapeHtml(item.label)}</span>
+          <label class="checkWrap checkWrap-radio">
+            <input type="radio"
                   class="option-radio"
                   id="${id}"
                   name="${escapeHtml(card.id)}"
-                  value="${escapeHtml(card.id)}"
+                  value="${escapeHtml(value)}"
                   ${card.defaultChecked ? "checked" : ""}>
-          <span class="custom-checkbox custom-checkbox--radio" aria-hidden="true"></span>
-        </label>
-      </li>
-    `
+            <span class="custom-checkbox custom-checkbox--radio" aria-hidden="true"></span>
+          </label>
+        </li>
+      `;
   }
 
   if (item.type === "counter") {
@@ -562,8 +563,6 @@ function renderCard(card) {
       <span class="custom-checkbox" aria-hidden="true"></span>
     </label>
   `;
-
-  console.log(card.title)
 
   const titleHtml = card.title === "Подготовка"
   ? `<span>${escapeHtml(card.title)} <span class="titleStar is-clickable" title="Выполняется только при начале нашего с вами сотрудничества">*</span></span>`
@@ -1118,16 +1117,17 @@ function getSelectedServicesBySections(config, formData) {
 
     section.items.forEach(item => {
       if (item.type === "checkbox") {
-        const keyPart = item.id ?? item.label;
-        const formKey = `${section.id}__${keyPart}`;
+        const key = `${section.id}__${item.id ?? item.label}`;
+        if (formData[key] === "on") sectionResult.items.push(item.label);
+      }
 
-        if (formData[formKey] === "on") {
+      if (item.type === "radio") {
+        if (formData[section.id] === item.id) {
           sectionResult.items.push(item.label);
         }
       }
     });
 
-    // 🔹 Специальная логика для "Реализация"
     if (section.id === "realization") {
       const videosCount = Number(formData["realization__videosCount"] || 1);
       sectionResult.videosCount = videosCount; // сохраняем количество роликов
@@ -1148,6 +1148,7 @@ function buildTelegramMessage(sections) {
     if (section.items.length > 0) {
       section.items.forEach(item => {
         message += `• ${item}\n`;
+
       });
     } else {
       message += `• Блок выбран целиком\n`;
@@ -1177,7 +1178,7 @@ function sendDataToTelegram(config, formData) {
 
   const telegramLink = `https://t.me/zdarovaloii?text=${encodeURIComponent(message)}`;
 
-  window.location.href = telegramLink;
+  // window.location.href = telegramLink;
 }
 
 serviceForm.addEventListener("submit", (e) => {
