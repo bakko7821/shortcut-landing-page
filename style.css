@@ -198,24 +198,41 @@ body {
 
 header {
     backdrop-filter: blur(2px);
-    z-index: 999;
+    -webkit-backdrop-filter: blur(2px);
     position: fixed;
-    top: 0px;
+    top: 0;
+    z-index: 999;
+
     padding: 24px 40px;
     width: 100%;
     max-width: 1440px;
+
     display: flex;
-    color: var(--black);
     justify-content: space-between;
     align-items: center;
+
     mix-blend-mode: difference;
 }
 
+
 @supports (-webkit-backdrop-filter: blur(2px)) {
-  header {
-    mix-blend-mode: normal;
-  }
+    header {
+        mix-blend-mode: normal;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+        color: var(--black);
+    }
+
+    header nav a.navLink {
+        color: var(--black);
+        mix-blend-mode: normal;
+    }
+
+    header .logoImage {
+        mix-blend-mode: normal;
+    }
 }
+
 
 header .logoImage {
     opacity: 0;
