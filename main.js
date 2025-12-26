@@ -718,9 +718,15 @@ function updateMontageBubble() {
     x - bubbleRect.width / 2;
 
   const clamped =
-    Math.max(0, Math.min(offset, rangeRect.width - bubbleRect.width));
+    Math.max(20, Math.min(offset, rangeRect.width - bubbleRect.width));
 
-  montageBubble.style.left = `${clamped}px`;
+  if (val < 15) {
+    montageBubble.style.left = `${clamped}px`;
+  } else {
+    montageBubble.style.left = `${clamped + 40}px`;
+  }
+
+  
 
   // === OPACITY LOGO ===
   const montageImg = document.querySelector("#montageImage");
@@ -1048,8 +1054,12 @@ function updateTotalUI() {
       ? calculateServiceTotal()
       : calculateMontageTotal();
 
+  const text = Number.isNaN(total)
+    ? "Договорная"
+    : `${total.toLocaleString("ru-RU")} ₽`;
+
   valueEls.forEach(el => {
-    el.textContent = `${total.toLocaleString("ru-RU")} ₽`;
+    el.textContent = text;
   });
 }
 

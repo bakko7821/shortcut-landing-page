@@ -1688,12 +1688,15 @@ section.hero.tablet .labelBox {
     }
 }
 
-
-@media (max-width: 390px) {
+@media (max-width: 430px) {
     section.hero.tablet .topLabels span,
     section.hero.tablet .bottomLabels span {
         font-size: var(--fs14);
     }
+}
+
+
+@media (max-width: 390px) {
 
     * {
         cursor: auto;
@@ -1728,7 +1731,7 @@ section.hero.tablet .labelBox {
     .label {
         font-size: clamp(0.5rem, 2vh, 0.625rem);
     }
-    
+
     .line-wrapper.tl .labelBox {
         flex-direction: row-reverse;
         top: -8px;
