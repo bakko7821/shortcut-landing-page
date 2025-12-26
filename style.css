@@ -1530,9 +1530,11 @@ footer .mailLink {
 @media (max-width: 460px) {
     header {
         gap: 12px;
+        padding: 24px 16px !important;
     }
 
     header .logoImage {
+        width: 117px;
         height: 20px;
     }
 
@@ -1581,6 +1583,7 @@ footer .mailLink {
     }
 
     header .logoImage {
+        width: 78px;
         height: 16px;
     }
 
