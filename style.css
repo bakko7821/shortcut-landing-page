@@ -86,6 +86,34 @@
     }
 }
 
+@keyframes scrollRight {
+    0% {
+        right: 0;
+    }
+
+    50% {
+        right: 10%;
+    }
+
+    100% {
+        right: 0;
+    }
+}
+
+@keyframes scrollLeft {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: 10%;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
 /* MEDIA */
 
 :root {
@@ -93,12 +121,12 @@
     --text-color: #120303;
     --black: #000000;
     --white: #ffffff;
-    --fs48: clamp(2.5rem, 2vh, 3rem);
-    --fs32: clamp(1.8rem, 2vh, 2rem);
+    --fs48: clamp(2.5rem, 2vw, 3rem);
+    --fs32: clamp(1.8rem, 2vw, 2rem);
     --fs24: clamp(1rem, 2vw, 1.5rem);
-    --fs20: clamp(1rem, 2vh, 1.25rem);
-    --fs16: clamp(0.875rem, 2vh, 1rem);
-    --fs14: clamp(0.625rem, 2vh, 0.875rem);
+    --fs20: clamp(1rem, 2vw, 1.25rem);
+    --fs16: clamp(0.875rem, 2vw, 1rem);
+    --fs14: clamp(0.625rem, 2vw, 0.875rem);
 }
 
 * {
@@ -116,12 +144,13 @@ html, body {
     flex-direction: column;
     justify-content: start;
     width: 100%;
+    z-index: 2;
     min-height: 100vh;
     margin: 0 auto;
     height: auto;
     overflow-x: hidden;
-    background-color: var(--background-color);
     cursor: none;
+    background-color: var(--background-color);
 }
 
 html::-webkit-scrollbar {
@@ -195,6 +224,7 @@ body {
     max-width: 1440px;
     overflow: hidden;
 }
+
 header {
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
@@ -205,7 +235,6 @@ header {
     padding: 24px 40px;
     width: 100%;
     max-width: 1440px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -213,7 +242,11 @@ header {
     mix-blend-mode: difference;
 }
 
-/* Safari fallback — ПРОСТО И НАДЁЖНО */
+header a {
+    color: var(--white);
+    mix-blend-mode: difference;
+}
+
 @supports (-webkit-backdrop-filter: blur(2px)) {
     header {
         backdrop-filter: none;
@@ -230,16 +263,22 @@ header {
     }
 
     header .logoImage {
+        filter: none;
         mix-blend-mode: normal;
     }
 }
 
 header .logoImage {
+    filter: invert(1);
+    position: relative;
+    z-index: 1;
+    width: 117px;
+    height: 24px;
+    object-fit: fill;
+    
     opacity: 0;
     animation: fadeIn 1s ease forwards;
-    animation-delay: 0.3s;
-
-    mix-blend-mode: difference;
+    animation-delay: 0.3s;      
 }
 
 header nav {
@@ -257,8 +296,6 @@ header nav a.navLink {
 
     font-family: "PT Mono", monospace;
     font-size: var(--fs20);
-    color: var(--white);
-    mix-blend-mode: difference;
 
     text-decoration: none;
 }
@@ -297,6 +334,10 @@ section.hero {
     gap: clamp(88px, 10vw + 58px, 237px);
     width: 100%;
     position: relative;
+}
+
+section.hero.tablet {
+    display: none;
 }
 
 section.hero .leftLines,
@@ -366,7 +407,7 @@ section.hero .cameraImage.flash {
   background: white;
   opacity: 0;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 999;
 }
 
 .flash-overlay.active {
@@ -1346,6 +1387,76 @@ footer .mailLink {
     word-break: break-all;
 }
 
+section.hero.tablet {
+    height: 75vw;
+    min-height: 280px;
+}
+
+section.hero.tablet .topLabels,
+section.hero.tablet .bottomLabels {
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+section.hero.tablet .topLabels .textLabels,
+section.hero.tablet .bottomLabels .textLabels {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    display: flex;
+    /* flex-wrap: wrap; */
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+section.hero.tablet .textLabels.top {
+    position: relative;
+    
+    /* animation: scrollRight 10s infinite; */
+}
+
+section.hero.tablet .textLabels.bottom {
+    position: relative;
+    
+    /* animation: scrollLeft 10s infinite; */
+}
+
+section.hero.tablet .topLabels span,
+section.hero.tablet .bottomLabels span {
+    transform: scale(1);
+    white-space: nowrap;
+    font-size: var(--fs16);
+    border-radius: 12px;
+    color: var(--text-color);
+    padding: 4px 8px;
+    background-color: var(--background-color);
+    border: 1px #ECECEC solid;
+    transition: all 0.5s;
+}
+
+section.hero.tablet span.active {
+    position: relative;
+    z-index: 999;
+    transform: scale(1.1);
+    color: var(--background-color);
+    background-color: var(--text-color);
+}
+
+section.hero.tablet .bottomLabels {
+    top: 90%;
+}
+
+section.hero.tablet .labelBox {
+    opacity: 0;
+}
+
 @media (max-width: 1024px) {
     section.hero {
         width: 120vw;   
@@ -1432,6 +1543,14 @@ footer .mailLink {
 @media (max-width: 768px) {
     * {
         cursor: auto;
+    }
+
+    section.hero {
+        display: none;
+    }
+
+    section.hero.tablet {
+        display: flex;
     }
 
     header nav {
@@ -1528,6 +1647,11 @@ footer .mailLink {
 }
 
 @media (max-width: 460px) {
+
+    .svgCursor {
+        height: 18px;
+    }
+    
     header {
         gap: 12px;
         padding: 24px 16px !important;
@@ -1566,6 +1690,11 @@ footer .mailLink {
 
 
 @media (max-width: 390px) {
+    section.hero.tablet .topLabels span,
+    section.hero.tablet .bottomLabels span {
+        font-size: var(--fs14);
+    }
+
     * {
         cursor: auto;
     }
@@ -1599,11 +1728,7 @@ footer .mailLink {
     .label {
         font-size: clamp(0.5rem, 2vh, 0.625rem);
     }
-
-    .svgCursor {
-        height: 18px;
-    }
-
+    
     .line-wrapper.tl .labelBox {
         flex-direction: row-reverse;
         top: -8px;

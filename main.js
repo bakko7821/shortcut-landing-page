@@ -432,6 +432,52 @@ document.querySelectorAll('.reveal').forEach(el => {
   observer.observe(el);
 });
 
+// 
+// PULSE ANIMATION
+// 
+
+const labels = document.querySelectorAll('section.hero.tablet span');
+
+const firstGroup = [0, 3, 4, 7];
+const secondGroup = [1, 2, 5, 6];
+
+function clearActive() {
+  labels.forEach(label => label.classList.remove('active'));
+}
+
+function activate(group) {
+  group.forEach(i => labels[i]?.classList.add('active'));
+}
+
+function startAnimation() {
+  // 1. старт → ждём 500 ms
+  setTimeout(() => {
+    // 2. первая группа активна 700 ms
+    activate(firstGroup);
+
+    setTimeout(() => {
+      // 3. всё выключаем на 500 ms
+      clearActive();
+
+      setTimeout(() => {
+        // 4. вторая группа активна 700 ms
+        activate(secondGroup);
+
+        setTimeout(() => {
+          clearActive()
+        }, 700);
+
+      }, 500);
+
+    }, 700);
+
+  }, 500);
+}
+
+startAnimation();
+
+
+
 // =========================
 // CONFIGURATOR RENDER HELPERS (WITH SVG)
 // =========================
