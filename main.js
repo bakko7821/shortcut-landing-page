@@ -203,12 +203,11 @@ window.addEventListener('mousemove', e => {
   }
 });
 
-// Кликабельные элементы (как было)
 document.addEventListener('mouseenter', (e) => {
   if (e.target instanceof Element && e.target.matches('a, button, .is-clickable')) {
     cursor.classList.add('is-pointer');
   }
-}, true); // true — чтобы ловить на фазе захвата
+}, true);
 
 document.addEventListener('mouseleave', (e) => {
   if (e.target instanceof Element && e.target.matches('a, button, .is-clickable')) {
@@ -216,7 +215,6 @@ document.addEventListener('mouseleave', (e) => {
   }
 }, true);
 
-// ===== IFRAMES =====
 document.querySelectorAll('iframe').forEach(iframe => {
   iframe.addEventListener('mouseenter', () => {
     cursor.classList.add('is-hidden');
@@ -238,6 +236,7 @@ document.addEventListener('mouseout', e => {
     cursor.classList.remove('is-pointer');
   }
 });
+
 
 // =========================
 // HERO LINES ANIMATION
@@ -448,9 +447,9 @@ document.querySelectorAll('.reveal').forEach(el => {
   observer.observe(el);
 });
 
-// 
+// =========================
 // PULSE ANIMATION
-// 
+// =========================
 
 const labels = document.querySelectorAll('section.hero.tablet span');
 
@@ -466,17 +465,13 @@ function activate(group) {
 }
 
 function startAnimation() {
-  // 1. старт → ждём 500 ms
   setTimeout(() => {
-    // 2. первая группа активна 700 ms
     activate(firstGroup);
 
     setTimeout(() => {
-      // 3. всё выключаем на 500 ms
       clearActive();
 
       setTimeout(() => {
-        // 4. вторая группа активна 700 ms
         activate(secondGroup);
 
         setTimeout(() => {
@@ -491,8 +486,6 @@ function startAnimation() {
 }
 
 startAnimation();
-
-
 
 // =========================
 // CONFIGURATOR RENDER HELPERS (WITH SVG)
@@ -531,7 +524,7 @@ function renderItem(card, item) {
 
   if (item.type === "radio") {
       const id = `${card.id}__${item.id ?? escapeHtml(item.label)}`;
-      const value = item.id ?? escapeHtml(item.label); // уникальное значение для каждой радиокнопки
+      const value = item.id ?? escapeHtml(item.label);
 
       return `
         <li class="checkbox-item">
@@ -614,7 +607,6 @@ function renderCard(card) {
   const sectionInputId = `section-${card.id}`;
   const items = Array.isArray(card.items) ? card.items : [];
 
-  // Добавляем обработчик для синхронизации чекбоксов
   let sectionCheckboxHtml = `
     <label class="checkWrap">
       <input type="checkbox"
@@ -630,7 +622,6 @@ function renderCard(card) {
   ? `<span>${escapeHtml(card.title)} <span class="titleStar is-clickable" title="Выполняется единоразово, только при начале нашего с вами сотрудничества.">*</span></span>`
   : `<span>${escapeHtml(card.title)}</span>`;
 
-  // Рендерим список элементов
   return `
     <article class="card" id="${escapeHtml(card.id)}">
       <div class="preview">
@@ -742,8 +733,6 @@ function updateMontageBubble() {
     montageBubble.style.left = `${clamped + 40}px`;
   }
 
-  
-
   // === OPACITY LOGO ===
   const montageImg = document.querySelector("#montageImage");
   if (montageImg) {
@@ -756,7 +745,6 @@ function updateMontageBubble() {
 montageRange.addEventListener("input", updateMontageBubble);
 window.addEventListener("resize", updateMontageBubble);
 
-// первичная установка
 updateMontageBubble();
 
 const SERVICE_IMAGE = "images/cameraState/camera1.png";
@@ -779,7 +767,7 @@ function setMainImage(mode) {
   }
 }
 
-let activeMode = "service"; // 'service' | 'montage'
+let activeMode = "service";
 
 // =========================
 // RENDER
@@ -811,7 +799,6 @@ function setMode(mode) {
 
   setMainImage(mode);
 
-  // === ЛЕВАЯ ЧАСТЬ ===
   if (isService) {
     descriptionText.textContent = "*Здесь вы можете выбрать список услуг";
     montageDurationBox.style.display = 'none';
@@ -844,7 +831,6 @@ function updateCamera() {
   const img = getMainImageEl();
   if (!img) return;
 
-  // В режиме montage не трогаем cameraState картинки (там logo)
   if (activeMode === "montage") return;
 
   img.style.opacity = 0;
@@ -854,7 +840,6 @@ function updateCamera() {
   }, 300);
 }
 
-// init + tab clicks
 document.addEventListener("DOMContentLoaded", () => {
   setMode("service");
 
@@ -874,7 +859,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // =========================
 
 function handleRootClick(root, e) {
-  // dropdown
   const ddButton = e.target.closest(".dropDownButton");
   if (ddButton) {
     const card = ddButton.closest(".card");
@@ -914,7 +898,6 @@ function handleRootClick(root, e) {
     return;
   }
 
-  // counter +/- (unchanged)
   const plus = e.target.closest(".plus");
   const minus = e.target.closest(".minus");
   if (plus || minus) {
@@ -945,7 +928,6 @@ montageRoot.addEventListener("click", (e) => handleRootClick(montageRoot, e));
 // =========================
 
 function handleRootChange(root, e) {
-  // service checkbox
   const section = e.target.closest(".section-toggle");
   if (section) {
     const card = section.closest(".card");
@@ -957,7 +939,6 @@ function handleRootChange(root, e) {
     return;
   }
 
-  // montage radio
   const radio = e.target.closest(".montage-radio");
   if (radio) {
     updateCamera();
@@ -991,18 +972,14 @@ function calculateServiceTotal() {
 
     let sectionTotal = 0;
 
-    // Получаем количество роликов для блока "realization" или 1 по умолчанию
     let videosCount = 1;
     if (card.id === "realization") {
       const counterInput = document.querySelector(
         `input[name="realization__videosCount"]`
       );
       videosCount = counterInput ? Number(counterInput.value) : 1;
-
-      // базовая стоимость секции умножаем на количество роликов
       sectionTotal += (card.count || 0) * videosCount;
     } else {
-      // для остальных секций просто добавляем card.count
       sectionTotal += card.count || 0;
     }
 
@@ -1095,7 +1072,6 @@ document.addEventListener('change', function (event) {
     const contentCheckboxes = card.querySelectorAll('.content input[type="checkbox"]');
     const isChecked = Array.from(contentCheckboxes).some(checkbox => checkbox.checked);
 
-    // Если хотя бы один чекбокс выбран в контенте, активируем чекбокс в превью
     if (isChecked) {
       previewCheckbox.checked = true;
       updateTotalUI()
@@ -1113,7 +1089,6 @@ document.addEventListener('change', function (event) {
     const contentCheckboxes = card.querySelectorAll('.content input[type="radio"]');
     const isChecked = Array.from(contentCheckboxes).some(checkbox => checkbox.checked);
 
-    // Если хотя бы один чекбокс выбран в контенте, активируем чекбокс в превью
     if (isChecked) {
       previewCheckbox.checked = true;
       updateTotalUI()
@@ -1122,28 +1097,23 @@ document.addEventListener('change', function (event) {
     }
   }
 
-  // Обратная механика: при выборе чекбокса в preview, активируются все чекбоксы в content
   if (target.matches('.section-toggle')) {
     const cardId = target.closest('.card').id;
     const contentCheckboxes = document.querySelectorAll(`#${cardId} .content input[type="radio"], #${cardId} .content input[type="checkbox"]`);
 
     if (target.checked) {
       if (cardId === "realization") {
-        // В блоке "Реализация" активируем только чекбокс "Съемка силами клиента"
         const clientShootingCheckbox = document.querySelector(`#${cardId} input[id="realization__clientShooting"]`);
         clientShootingCheckbox.checked = true;
 
-        // Снимаем галочки с других чекбоксов в content
         const otherCheckboxes = document.querySelectorAll(`#${cardId} .content input[type="radio"]:not([id="realization__clientShooting"])`);
         otherCheckboxes.forEach(checkbox => checkbox.checked = false);
       } else {
-        // Для других блоков активируем все чекбоксы в content
         contentCheckboxes.forEach(checkbox => {
           checkbox.checked = true;
         });
       }
     } else {
-      // Если чекбокс в preview снят, снимаем все чекбоксы в content
       contentCheckboxes.forEach(checkbox => {
         checkbox.checked = false;
       });
@@ -1173,8 +1143,6 @@ function buildMontageBlock(montageConfig, data) {
   return message;
 }
 
-
-// Преобразуем конфиг в список выбранных услуг
 function getSelectedServicesBySections(config, formData) {
   const result = [];
 
@@ -1202,7 +1170,7 @@ function getSelectedServicesBySections(config, formData) {
 
     if (section.id === "realization") {
       const videosCount = Number(formData["realization__videosCount"] || 1);
-      sectionResult.videosCount = videosCount; // сохраняем количество роликов
+      sectionResult.videosCount = videosCount;
     }
 
     result.push(sectionResult);
@@ -1226,7 +1194,6 @@ function buildTelegramMessage(sections) {
       message += `• Блок выбран целиком\n`;
     }
 
-    // 🔹 Если есть videosCount, добавляем к сообщению
     if (section.videosCount) {
       message += `• Количество роликов: ${section.videosCount}\n`;
     }
@@ -1256,10 +1223,8 @@ function sendDataToTelegram(config, formData) {
 serviceForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // Получаем данные из формы в виде объекта
   const formData = Object.fromEntries(new FormData(serviceForm).entries());
 
-  // Отправляем данные в Telegram
   sendDataToTelegram(CONFIG, formData);
 });
 
@@ -1280,15 +1245,14 @@ montageForm.addEventListener("submit", (e) => {
   window.location.href = telegramLink;
 });
 
-// 
+// =========================
 // NAV SCROLL
-// 
+// =========================
 
 document.querySelectorAll('a.navLink, header > a, footer .links > a, footer.mobile .links > a, a.applyNowButton').forEach(link => {
   link.addEventListener('click', e => {
     const href = link.getAttribute('href');
 
-    // Если это якорь (начинается с #)
     if (href.startsWith('#')) {
       e.preventDefault();
 
@@ -1305,11 +1269,8 @@ document.querySelectorAll('a.navLink, header > a, footer .links > a, footer.mobi
         behavior: 'smooth'
       });
     }
-    // Иначе — внешняя ссылка, пусть браузер сам откроет
   });
 });
-
-
 
 // =========================
 // LOAD CONTENT
