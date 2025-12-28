@@ -31,6 +31,22 @@ const videos = [
       src: 'https://www.youtube.com/embed/UQIquJhSsJg?si=7K-aUjt03ZTyayJL',
       title: 'Project 7'
     },
+    {
+      src: 'https://www.youtube.com/embed/eP7FdyZcv6A',
+      title: 'Project 8'
+    },
+    {
+      src: 'https://www.youtube.com/embed/gqrcr37SLv4',
+      title: 'Project 9'
+    },
+    {
+      src: 'https://www.youtube.com/embed/VnmGIc8sw6c?si=R54puBdNwsEUkeCT',
+      title: 'Project 10'
+    },
+    {
+      src: 'https://www.youtube.com/embed/sJY670Kw2J0?si=VDH-RiybL7oeHpt2',
+      title: 'Project 11'
+    },
 ];
 
 // =========================
