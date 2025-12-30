@@ -1180,7 +1180,7 @@ function getSelectedServicesBySections(config, formData) {
 }
 
 function buildTelegramMessage(sections) {
-  let message = "Привет, хотел(а) бы заказать.\nВыбранные услуги:\n\n";
+  let message = "Здравствуйте, хотел(а) бы заказать.\nВыбранные услуги:\n\n";
 
   sections.forEach(section => {
     message += `**${section.title}**\n`;
@@ -1237,7 +1237,7 @@ montageForm.addEventListener("submit", (e) => {
   };
 
   const message =
-    "Привет, хотел(а) бы заказать.\n\n" +
+    "Здравствуйте, хотел(а) бы заказать.\n\n" +
     buildMontageBlock(MONTAGE_CONFIG, data);
 
   const telegramLink = `https://t.me/zdarovaloii?text=${encodeURIComponent(message)}`;
